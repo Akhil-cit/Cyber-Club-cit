@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cyber Club CIT — Coimbatore Institute of Technology</title>
+  <meta name="description" content="Student-driven cybersecurity community at Coimbatore Institute of Technology.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000000;
+      --bg2: #0a0a0a;
+      --bg3: #111111;
+      --surface: #0f0f0f;
+      --accent: #00e85a;
+      --accent-dim: rgba(0, 232, 90, 0.15);
+      --border: rgba(255,255,255,0.07);
+      --border-md: rgba(255,255,255,0.12);
+      --text: #888888;
+      --text-bright: #ffffff;
+      --text-mid: #aaaaaa;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-disp: 'Space Grotesk', sans-serif;
+      --nav-h: 60px;
+      --max-w: 1400px;
+      --pad-x: clamp(1.5rem, 5vw, 5rem);
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-disp);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img, svg { display: block; }
+    ul { list-style: none; }
+
+    /* ---- NAV ---- */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 500;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .club-logo-icon {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+    }
+    .nav-wordmark {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .nav-title {
+      font-family: var(--font-disp);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: 0.03em;
+    }
+    .nav-sub {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--text);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+    .nav-link {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--text-bright); }
+
+    .nav-timer-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .timer-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .nav-timer {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .timer-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1;
+    }
+    .timer-num { font-size: 0.88rem; }
+    .timer-unit-label {
+      font-size: 0.42rem;
+      color: var(--text);
+      letter-spacing: 0.15em;
+      margin-top: 2px;
+    }
+    .timer-sep { color: var(--text); opacity: 0.4; font-size: 0.7rem; }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: 1px solid var(--border-md);
+      width: 38px; height: 34px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 16px; height: 1px;
+      background: var(--text);
+      transition: background 0.2s;
+    }
+    .hamburger:hover span { background: var(--text-bright); }
+
+    /* ---- MOBILE MENU ---- */
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.98);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transform: translateX(100%);
+      transition: transform 0.45s var(--ease);
+    }
+    .mobile-overlay.open { transform: translateX(0); }
+    .close-btn {
+      position: absolute;
+      top: 1.5rem; right: var(--pad-x);
+      background: none; border: 1px solid var(--border-md);
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text); cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .close-btn:hover { color: var(--text-bright); border-color: var(--border-md); }
+    .mobile-nav { display: flex; flex-direction: column; gap: 2rem; text-align: center; }
+    .m-link {
+      font-family: var(--font-disp);
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      font-weight: 700;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+    .m-link:hover { color: var(--text-bright); }
+    .mobile-footer {
+      position: absolute; bottom: 2rem;
+      font-size: 0.65rem; color: var(--text);
+      letter-spacing: 0.12em; text-align: center; line-height: 2;
+    }
+
+    /* ---- HERO ---- */
+    #hero {
+      min-height: 100vh;
+      padding-top: var(--nav-h);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-canvas-wrap {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    #heroCanvas { width: 100%; height: 100%; }
+
+    .hero-eyebrow-bar {
+      position: relative; z-index: 1;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 3rem var(--pad-x) 0;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulseDot 2.5s ease-in-out infinite;
+    }
+
+    .hero-body {
+      position: relative; z-index: 1;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 2rem var(--pad-x) 0;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 4rem;
+    }
+    .hero-left { flex: 1; }
+
+    .hero-tagline {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.25rem;
+      font-style: italic;
+    }
+    .hero-tagline span { color: var(--text-mid); }
+
+    .hero-title {
+      font-family: var(--font-disp);
+      font-weight: 700;
+      font-size: clamp(4rem, 10vw, 9rem);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      animation: fadeUp 0.5s var(--ease) 0.1s both;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--text-mid);
+      max-width: 520px;
+      margin-bottom: 0.5rem;
+      font-weight: 400;
+      animation: fadeUp 0.5s var(--ease) 0.25s both;
+    }
+    .hero-sub-desc {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.5s var(--ease) 0.35s both;
+    }
+
+    .event-cards-row {
+      display: flex;
+      gap: 1px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.5s var(--ease) 0.4s both;
+    }
+    .event-mini-card {
+      flex: 1;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 1.25rem 1.5rem;
+    }
+    .event-mini-card + .event-mini-card { border-left: none; }
+    .emc-type {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--text);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .emc-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 0.35rem;
+    }
+    .emc-date {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .emc-venue {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text);
+      margin-top: 2px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.5s var(--ease) 0.5s both;
+    }
+
+    /* Inline countdown in hero */
+    .hero-timer-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.5s var(--ease) 0.6s both;
+    }
+    .htimer-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .htimer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .htimer-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .htimer-num {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      min-width: 2.5ch;
+      text-align: center;
+    }
+    .htimer-sub {
+      font-family: var(--font-mono);
+      font-size: 0.45rem;
+      color: var(--text);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .htimer-sep {
+      font-family: var(--font-mono);
+      color: var(--text);
+      opacity: 0.3;
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .hero-right {
+      flex: 0 0 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding-top: 3rem;
+      animation: fadeLeft 0.6s var(--ease) 0.3s both;
+    }
+
+    /* Terminal */
+    .terminal-window {
+      background: #050505;
+      border: 1px solid var(--border-md);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .terminal-bar {
+      background: #0d0d0d;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .tbar-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .tbar-dot--red    { background: #ff5f56; }
+    .tbar-dot--yellow { background: #ffbd2e; }
+    .tbar-dot--green  { background: #27c93f; }
+    .tbar-title {
+      margin-left: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text);
+    }
+    .terminal-body {
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      line-height: 1.65;
+      overflow: hidden;
+    }
+    .tl { color: var(--text); }
+    .tl .p { color: var(--accent); margin-right: 8px; }
+    .tl .c { color: var(--text-bright); }
+    .tl.o { color: #4a4a4a; padding-left: 1rem; }
+    .tl.o.s { color: var(--accent); }
+    .blink { animation: blink 1s step-end infinite; color: var(--accent); }
+
+    .hero-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-top: none;
+    }
+    .hstat {
+      background: var(--bg2);
+      padding: 1.1rem 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      transition: background 0.2s;
+    }
+    .hstat:hover { background: var(--bg3); }
+    .hstat-n {
+      font-family: var(--font-disp);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .hstat-n::after { content: '+'; font-size: 0.9rem; }
+    .hstat-l {
+      font-family: var(--font-mono);
+      font-size: 0.52rem;
+      color: var(--text);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* ---- BUTTONS ---- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.8rem 1.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      border: none;
+    }
+    .btn--primary {
+      background: var(--accent);
+      color: #000;
+    }
+    .btn--primary:hover {
+      background: #1fff6e;
+    }
+    .btn--ghost {
+      border: 1px solid var(--border-md);
+      color: var(--text-mid);
+      background: transparent;
+    }
+    .btn--ghost:hover {
+      border-color: rgba(255,255,255,0.3);
+      color: var(--text-bright);
+    }
+
+    /* ---- SECTIONS ---- */
+    section {
+      padding: 6rem var(--pad-x);
+    }
+    .section-wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .section--alt { background: var(--bg2); }
+
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 3rem;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .eyebrow-text {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: var(--font-disp);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 3rem;
+    }
+
+    /* ---- ABOUT ---- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .about-main-text {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--text-mid);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .about-body {
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    mark {
+      background: none;
+      color: var(--accent);
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+    .astat {
+      background: var(--bg);
+      padding: 1.5rem;
+    }
+    .astat-n {
+      font-family: var(--font-disp);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .astat-l {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .vm-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+    }
+    .vm-card {
+      background: var(--bg);
+      padding: 2rem;
+      transition: background 0.2s;
+    }
+    .vm-card:hover { background: var(--bg3); }
+    .vm-card-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--accent);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .vm-card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 0.75rem;
+    }
+    .vm-card p {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    /* ---- WHAT WE DO ---- */
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .activity-card {
+      background: var(--bg2);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: background 0.2s;
+    }
+    .activity-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s var(--ease);
+    }
+    .activity-card:hover { background: var(--bg3); }
+    .activity-card:hover::before { transform: scaleX(1); }
+    .ac-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .ac-tag {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--text);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+    }
+    .activity-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 0.75rem;
+    }
+    .activity-card p {
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .ac-icon svg { stroke: var(--accent); }
+
+    /* ---- MARQUEE ---- */
+    .marquee-section {
+      background: var(--accent);
+      overflow: hidden;
+      padding: 0;
+    }
+    .marquee-inner {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      padding: 0.8rem 0;
+      white-space: nowrap;
+      animation: marquee 30s linear infinite;
+      width: max-content;
+    }
+    .marquee-inner span {
+      font-family: var(--font-disp);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #000;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .marquee-inner .dot { color: rgba(0,0,0,0.25); font-size: 0.5rem; }
+
+    /* ---- EVENTS (PAST) ---- */
+    #events { background: var(--bg); }
+    .past-events-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+    }
+    .past-events-header .section-title { margin-bottom: 0; }
+    .all-events-link {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .all-events-link:hover { color: var(--text-bright); }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+    .event-card {
+      background: var(--bg2);
+      padding: 3rem;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .event-card:hover { background: var(--bg3); }
+
+    .event-card-type {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .event-status-past {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text);
+      letter-spacing: 0.12em;
+      border: 1px solid var(--border-md);
+      padding: 3px 10px;
+    }
+
+    .event-card h3 {
+      font-family: var(--font-disp);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+    }
+    .event-card-sub {
+      font-size: 0.82rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    .event-card-desc {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+
+    .event-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .meta-item dt {
+      font-family: var(--font-mono);
+      font-size: 0.52rem;
+      color: var(--text);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .meta-item dd {
+      font-size: 0.82rem;
+      color: var(--text-bright);
+    }
+
+    .event-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--accent);
+      border: 1px solid rgba(0,232,90,0.2);
+      padding: 3px 10px;
+      letter-spacing: 0.06em;
+    }
+
+    .event-rounds {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+    .event-rounds-title {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .round-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .round-num {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      padding: 0.25rem 0.5rem;
+      border: 1px solid rgba(0,232,90,0.2);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .round-content h5 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 0.3rem;
+    }
+    .round-content p {
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .prize-list {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .prize-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+    .prize-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ---- VALUES ---- */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .value-card {
+      background: var(--bg2);
+      padding: 2.5rem 2rem;
+      position: relative;
+      cursor: default;
+      transition: background 0.2s;
+      border-top: 1px solid var(--border);
+    }
+    .value-card:hover {
+      background: var(--bg3);
+      border-top-color: var(--accent);
+    }
+    .value-num {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      margin-bottom: 1.5rem;
+    }
+    .value-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 0.75rem;
+    }
+    .value-card p {
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    /* ---- CONTACT ---- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .contact-lead {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--text-mid);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+    .contact-list { margin-bottom: 2.5rem; }
+    .contact-item {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .contact-item:first-child { border-top: 1px solid var(--border); }
+    .contact-item dt {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--text);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .contact-item dd {
+      font-size: 0.88rem;
+      color: var(--text-bright);
+    }
+    .contact-link { color: var(--accent); transition: opacity 0.2s; }
+    .contact-link:hover { opacity: 0.7; }
+    .contact-actions { display: flex; gap: 1rem; }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 3.5rem var(--pad-x);
+    }
+    .footer-top {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      gap: 5rem;
+      align-items: start;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+    .footer-brand-name {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .footer-brand-name-text {
+      font-family: var(--font-disp);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-bright);
+    }
+    .footer-desc {
+      font-size: 0.78rem;
+      line-height: 1.85;
+      color: var(--text);
+      max-width: 300px;
+    }
+    .footer-col-title {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .footer-col-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .footer-col-links a {
+      font-size: 0.82rem;
+      color: var(--text);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .footer-col-links a::before {
+      content: '—';
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text);
+      opacity: 0.4;
+    }
+    .footer-col-links a:hover { color: var(--text-bright); }
+
+    .footer-bottom {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text);
+      letter-spacing: 0.08em;
+    }
+    .footer-made {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text);
+      letter-spacing: 0.08em;
+    }
+    .footer-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent);
+    }
+
+    /* ---- SCROLL REVEAL ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+      transition-delay: var(--delay, 0s);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ---- TEAM SECTION ---- */
+    #team { background: var(--bg); }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      max-width: 860px;
+    }
+    .team-card {
+      background: var(--bg2);
+      padding: 2.5rem;
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s var(--ease);
+    }
+    .team-card:hover { background: var(--bg3); }
+    .team-card:hover::before { transform: scaleX(1); }
+    .team-photo-wrap {
+      flex-shrink: 0;
+      width: 90px;
+      height: 90px;
+      position: relative;
+    }
+    .team-photo {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      object-position: top center;
+      border: 1px solid var(--border-md);
+      filter: grayscale(20%);
+      transition: filter 0.3s;
+      display: block;
+    }
+    .team-card:hover .team-photo { filter: grayscale(0%); }
+    .team-photo-placeholder {
+      width: 90px;
+      height: 90px;
+      background: var(--bg3);
+      border: 1px solid var(--border-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .team-info { flex: 1; }
+    .team-role {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--accent);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .team-name {
+      font-family: var(--font-disp);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .team-bio {
+      font-size: 0.8rem;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .team-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .team-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text);
+      letter-spacing: 0.04em;
+    }
+    .team-contact-item .tc-label {
+      color: var(--text);
+      opacity: 0.5;
+      font-size: 0.52rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      min-width: 3rem;
+    }
+    .team-contact-item a {
+      color: var(--accent);
+      transition: opacity 0.2s;
+    }
+    .team-contact-item a:hover { opacity: 0.7; }
+
+    /* ---- HIRING BANNER ---- */
+    .hiring-banner {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 400;
+      background: var(--accent);
+      padding: 0.65rem var(--pad-x);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.15);
+    }
+    .hiring-banner-text {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #000;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .hiring-banner-timer {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #000;
+    }
+    .hb-sep { opacity: 0.4; }
+    .hiring-banner-btn {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: #000;
+      color: var(--accent);
+      padding: 0.4rem 1.1rem;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .hiring-banner-btn:hover { opacity: 0.8; }
+    .hiring-banner-expired {
+      display: none;
+    }
+    body { padding-bottom: 48px; }
+
+    /* ---- KEYFRAMES ---- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeLeft {
+      from { opacity: 0; transform: translateX(24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @keyframes pulseDot {
+      0%, 100% { box-shadow: 0 0 5px var(--accent); }
+      50%       { box-shadow: 0 0 12px var(--accent), 0 0 20px rgba(0,232,90,0.3); }
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 1100px) {
+      .hero-body { flex-direction: column; }
+      .hero-right { flex: 0 0 auto; width: 100%; max-width: 500px; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .activities-grid { grid-template-columns: repeat(2, 1fr); }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+      .events-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    }
+    @media (max-width: 768px) {
+      :root { --pad-x: 1.5rem; }
+      section { padding: 4rem var(--pad-x); }
+      .nav-center, .nav-timer-wrap { display: none; }
+      .hamburger { display: flex; }
+      .activities-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .hero-title { font-size: clamp(3.5rem, 15vw, 7rem); }
+      .event-meta-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    @media (max-width: 480px) {
+      .values-grid { grid-template-columns: 1fr; }
+      .event-cards-row { flex-direction: column; }
+      .event-mini-card + .event-mini-card { border-left: 1px solid var(--border); border-top: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="Cyber Club CIT home">
+        <!-- Cyber Club CIT Logo: Eagle + Shield + Lock -->
+        <svg class="club-logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Outer circle -->
+          <circle cx="50" cy="50" r="47" fill="none" stroke="#00e85a" stroke-width="2"/>
+          <!-- Shield shape -->
+          <path d="M50 18 L72 28 L72 52 C72 64 62 73 50 78 C38 73 28 64 28 52 L28 28 Z" fill="none" stroke="#5a7a8a" stroke-width="2.5"/>
+          <!-- Inner shield -->
+          <path d="M50 24 L66 32 L66 50 C66 60 58 68 50 72 C42 68 34 60 34 50 L34 32 Z" fill="#1a2a35" stroke="#5a7a8a" stroke-width="1.5"/>
+          <!-- Lock body -->
+          <rect x="43" y="54" width="14" height="11" rx="2" fill="none" stroke="#00e85a" stroke-width="1.8"/>
+          <!-- Lock shackle -->
+          <path d="M46 54 L46 50 C46 47 54 47 54 50 L54 54" fill="none" stroke="#00e85a" stroke-width="1.8"/>
+          <!-- Lock keyhole -->
+          <circle cx="50" cy="59" r="1.5" fill="#00e85a"/>
+          <line x1="50" y1="60.5" x2="50" y2="63" stroke="#00e85a" stroke-width="1.4"/>
+          <!-- Eagle head -->
+          <ellipse cx="50" cy="38" rx="5" ry="5.5" fill="none" stroke="#6a8a9a" stroke-width="1.5"/>
+          <!-- Eagle eyes -->
+          <circle cx="48.2" cy="36.5" r="0.8" fill="#00e85a"/>
+          <circle cx="51.8" cy="36.5" r="0.8" fill="#00e85a"/>
+          <!-- Eagle beak -->
+          <path d="M48.5 39.5 L50 41.5 L51.5 39.5" fill="none" stroke="#00e85a" stroke-width="1"/>
+          <!-- Left wing -->
+          <path d="M45 40 C38 36 28 38 22 34 C25 40 30 43 36 44 C34 46 30 47 26 46 C29 50 35 50 41 48 L45 46" fill="none" stroke="#5a7a8a" stroke-width="1.5"/>
+          <!-- Right wing -->
+          <path d="M55 40 C62 36 72 38 78 34 C75 40 70 43 64 44 C66 46 70 47 74 46 C71 50 65 50 59 48 L55 46" fill="none" stroke="#5a7a8a" stroke-width="1.5"/>
+          <!-- Wing fill left -->
+          <path d="M45 40 C40 38 32 39 24 36 C27 41 33 44 40 45 L45 46" fill="#1e3040" stroke="none" opacity="0.7"/>
+          <!-- Wing fill right -->
+          <path d="M55 40 C60 38 68 39 76 36 C73 41 67 44 60 45 L55 46" fill="#1e3040" stroke="none" opacity="0.7"/>
+          <!-- Top text arc - CYBER CLUB (simplified as line text) -->
+          <path id="topArc" d="M 18 50 A 32 32 0 0 1 82 50" fill="none"/>
+        </svg>
+        <div class="nav-wordmark">
+          <span class="nav-title">CYBER CLUB CIT</span>
+          <span class="nav-sub">Official Student Chapter</span>
+        </div>
+      </a>
+
+      <div class="nav-center" id="navLinks">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#what-we-do" class="nav-link">What We Do</a>
+        <a href="#events" class="nav-link">Events</a>
+        <a href="#team" class="nav-link">Team</a>
+        <a href="#values" class="nav-link">Values</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+
+      <div class="nav-timer-wrap" aria-label="Hiring deadline countdown">
+        <span class="timer-label">HIRING CLOSES</span>
+        <div class="nav-timer">
+          <div class="timer-unit">
+            <span class="timer-num" id="navD">--</span>
+            <span class="timer-unit-label">DAYS</span>
+          </div>
+          <span class="timer-sep">·</span>
+          <div class="timer-unit">
+            <span class="timer-num" id="navH">--</span>
+            <span class="timer-unit-label">HRS</span>
+          </div>
+          <span class="timer-sep">·</span>
+          <div class="timer-unit">
+            <span class="timer-num" id="navM">--</span>
+            <span class="timer-unit-label">MINS</span>
+          </div>
+          <span class="timer-sep">·</span>
+          <div class="timer-unit">
+            <span class="timer-num" id="navS">--</span>
+            <span class="timer-unit-label">SECS</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="hamburger" id="menuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-overlay" id="mobileMenu" aria-hidden="true" role="dialog">
+    <button class="close-btn" id="closeMenu" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="15" y1="5" x2="5" y2="15"/><line x1="5" y1="5" x2="15" y2="15"/></svg>
+    </button>
+    <nav class="mobile-nav">
+      <a href="#about" class="m-link">About</a>
+      <a href="#what-we-do" class="m-link">What We Do</a>
+      <a href="#events" class="m-link">Events</a>
+      <a href="#team" class="m-link">Team</a>
+      <a href="#values" class="m-link">Values</a>
+      <a href="#contact" class="m-link">Contact</a>
+    </nav>
+    <div class="mobile-footer">
+      <p>Cyber Club CIT — Est. 2024</p>
+      <p>Coimbatore Institute of Technology</p>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-canvas-wrap">
+      <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    </div>
+
+    <div class="hero-eyebrow-bar">
+      <div class="hero-eyebrow">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>— Exploring the digital frontier, one terminal at a time.</span>
+      </div>
+    </div>
+
+    <div class="hero-body">
+      <div class="hero-left">
+        <h1 class="hero-title">CYBER<br>CLUB<br>CIT</h1>
+
+        <p class="hero-desc">A community of security researchers, ethical hackers, and technology enthusiasts at Coimbatore Institute of Technology.</p>
+        <p class="hero-sub-desc">Dept. of Information Technology — CIT, Coimbatore</p>
+
+        <div class="event-cards-row">
+          <div class="event-mini-card">
+            <div class="emc-type">Past Event</div>
+            <div class="emc-title">Operation: Blackout</div>
+            <div class="emc-date">3rd February 2026</div>
+            <div class="emc-venue">IT-213, CIT</div>
+          </div>
+          <div class="event-mini-card">
+            <div class="emc-type">Past Event</div>
+            <div class="emc-title">Into the Matrix</div>
+            <div class="emc-date">2024</div>
+            <div class="emc-venue">Coimbatore Institute of Technology</div>
+          </div>
+        </div>
+
+        <div class="hero-cta">
+          <a href="#events" class="btn btn--primary">View Past Events</a>
+          <a href="#contact" class="btn btn--ghost">Join Club</a>
+        </div>
+
+        <div class="hero-timer-row" aria-label="Hiring deadline countdown">
+          <div>
+            <span class="htimer-label">🟢 Hiring Open — Deadline</span>
+            <div style="font-family:var(--font-mono);font-size:0.52rem;color:var(--text);letter-spacing:0.14em;margin-top:3px;">09 APR 2026 · 11:59 PM IST</div>
+          </div>
+          <div class="htimer">
+            <div class="htimer-unit">
+              <span class="htimer-num" id="hD">--</span>
+              <span class="htimer-sub">days</span>
+            </div>
+            <span class="htimer-sep">·</span>
+            <div class="htimer-unit">
+              <span class="htimer-num" id="hH">--</span>
+              <span class="htimer-sub">hrs</span>
+            </div>
+            <span class="htimer-sep">·</span>
+            <div class="htimer-unit">
+              <span class="htimer-num" id="hM">--</span>
+              <span class="htimer-sub">mins</span>
+            </div>
+            <span class="htimer-sep">·</span>
+            <div class="htimer-unit">
+              <span class="htimer-num" id="hS">--</span>
+              <span class="htimer-sub">secs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="terminal-window" role="complementary" aria-label="Terminal">
+          <div class="terminal-bar" aria-hidden="true">
+            <span class="tbar-dot tbar-dot--red"></span>
+            <span class="tbar-dot tbar-dot--yellow"></span>
+            <span class="tbar-dot tbar-dot--green"></span>
+            <span class="tbar-title">hacker@cit ~ zsh — 80x24</span>
+          </div>
+          <div class="terminal-body" id="terminalBody" aria-live="polite">
+            <div class="tl"><span class="p">$</span> <span class="c">nmap -sV citcyberclub.in</span></div>
+            <div class="tl o">Starting Nmap 7.94...</div>
+            <div class="tl o">PORT&nbsp;&nbsp;&nbsp;&nbsp; STATE SERVICE</div>
+            <div class="tl o s">22/tcp&nbsp;&nbsp; open&nbsp; ssh</div>
+            <div class="tl o s">443/tcp&nbsp; open&nbsp; https</div>
+            <div class="tl"><span class="p">$</span> <span class="c">whoami</span></div>
+            <div class="tl o s">hacker</div>
+            <div class="tl"><span class="p">$</span> <span class="c">./join_community.sh</span></div>
+            <div class="tl o">[ OK ] Connecting to CIT node...</div>
+            <div class="tl o s">[ OK ] Welcome to Cyber Club CIT</div>
+            <div class="tl o s">[ ** ] Systems live_</div>
+            <div class="tl"><span class="p blink">█</span></div>
+          </div>
+        </div>
+        <div class="hero-stat-grid" aria-label="Club statistics">
+          <div class="hstat">
+            <span class="hstat-n" data-count="50">0</span>
+            <span class="hstat-l">Members</span>
+          </div>
+          <div class="hstat">
+            <span class="hstat-n" data-count="5">0</span>
+            <span class="hstat-l">Events</span>
+          </div>
+          <div class="hstat">
+            <span class="hstat-n" data-count="3">0</span>
+            <span class="hstat-l">CTFs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section--alt" aria-labelledby="about-heading">
+    <div class="section-wrap">
+      <div class="section-eyebrow reveal">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">About the Club</span>
+      </div>
+
+      <div class="about-grid">
+        <div>
+          <h2 id="about-heading" class="section-title reveal">DCG<br>Coimbatore<br>Chapter</h2>
+          <p class="about-main-text reveal">
+            Cyber Club CIT is an official student chapter dedicated to practical cybersecurity learning, ethical hacking, and knowledge sharing.
+          </p>
+          <p class="about-body reveal">
+            We bring together security practitioners, researchers, students, and technology enthusiasts at Coimbatore Institute of Technology. The chapter is community-led, volunteer driven, and open to anyone with a genuine interest in cybersecurity.
+          </p>
+          <p class="about-body reveal">
+            In an age of rapid digitalization, the club prepares its members to be the <mark>ethical defenders and creators</mark> of the future web.
+          </p>
+
+          <div class="about-stats reveal" style="--delay:0.1s">
+            <div class="astat">
+              <div class="astat-n">2024</div>
+              <div class="astat-l">Founded</div>
+            </div>
+            <div class="astat">
+              <div class="astat-n">CIT</div>
+              <div class="astat-l">Coimbatore, TN</div>
+            </div>
+            <div class="astat">
+              <div class="astat-n">Open</div>
+              <div class="astat-l">All Skill Levels</div>
+            </div>
+            <div class="astat">
+              <div class="astat-n">IT</div>
+              <div class="astat-l">Department</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal" style="--delay:0.1s">
+          <div class="vm-cards">
+            <div class="vm-card">
+              <div class="vm-card-label">What is Cyber Club CIT?</div>
+              <h3>Student-Driven Security Community</h3>
+              <p>A high-tech community where students dive into the ever-evolving world of information security. Through workshops and hands-on challenges, we navigate network security and advanced software development.</p>
+            </div>
+            <div class="vm-card">
+              <div class="vm-card-label">Vision</div>
+              <h3>Ethical Guardians of the Digital Frontier</h3>
+              <p>To lead the charge in digital innovation and security, preparing students to be the ethical guardians and architects of the future internet.</p>
+            </div>
+            <div class="vm-card">
+              <div class="vm-card-label">Mission</div>
+              <h3>Practical Learning &amp; Knowledge Sharing</h3>
+              <p>Provide a sophisticated environment for exploring cybersecurity, ethical hacking, and emerging software technologies through competitive coding and defensive security exercises.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section id="what-we-do" aria-labelledby="wedo-heading">
+    <div class="section-wrap">
+      <div class="section-eyebrow reveal">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">What We Do</span>
+      </div>
+      <h2 id="wedo-heading" class="section-title reveal">Areas of<br>Focus</h2>
+
+      <div class="activities-grid">
+        <article class="activity-card reveal" style="--delay:0s" tabindex="0">
+          <div class="ac-top">
+            <div class="ac-icon">
+              <svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke-width="1.4"><path d="M3 12l5-5 4 4 7-7"/><path d="M3 19h16"/></svg>
+            </div>
+            <span class="ac-tag">Competitive</span>
+          </div>
+          <h3>CTF Competitions</h3>
+          <p>Intense Capture The Flag competitions simulating real-world hacking scenarios in controlled, legal environments.</p>
+        </article>
+        <article class="activity-card reveal" style="--delay:0.05s" tabindex="0">
+          <div class="ac-top">
+            <div class="ac-icon">
+              <svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke-width="1.4"><rect x="3" y="3" width="16" height="16" rx="2"/><path d="M7 10h8M7 14h5"/></svg>
+            </div>
+            <span class="ac-tag">Knowledge</span>
+          </div>
+          <h3>Workshops</h3>
+          <p>Member-led sessions on Blockchain, Artificial Intelligence, and Cloud Security to keep skills razor-sharp.</p>
+        </article>
+        <article class="activity-card reveal" style="--delay:0.1s" tabindex="0">
+          <div class="ac-top">
+            <div class="ac-icon">
+              <svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke-width="1.4"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <span class="ac-tag">Build</span>
+          </div>
+          <h3>Hackathons</h3>
+          <p>Annual 24–48 hour hackathons where students build software solutions for real social and industrial challenges.</p>
+        </article>
+        <article class="activity-card reveal" style="--delay:0.15s" tabindex="0">
+          <div class="ac-top">
+            <div class="ac-icon">
+              <svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke-width="1.4"><circle cx="11" cy="11" r="9"/><path d="M11 7v4l3 2"/></svg>
+            </div>
+            <span class="ac-tag">Investigate</span>
+          </div>
+          <h3>Digital Forensics</h3>
+          <p>Hands-on training in digital forensics and incident response to prepare for real-world cyber investigations.</p>
+        </article>
+        <article class="activity-card reveal" style="--delay:0.2s" tabindex="0">
+          <div class="ac-top">
+            <div class="ac-icon">
+              <svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke-width="1.4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span class="ac-tag">Educate</span>
+          </div>
+          <h3>Cyber Awareness</h3>
+          <p>Campaigns promoting cyber hygiene and safe digital practices across the entire campus community.</p>
+        </article>
+        <article class="activity-card reveal" style="--delay:0.25s" tabindex="0">
+          <div class="ac-top">
+            <div class="ac-icon">
+              <svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke-width="1.4"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+            </div>
+            <span class="ac-tag">Secure</span>
+          </div>
+          <h3>Ethical Hacking</h3>
+          <p>Structured labs on penetration testing, vulnerability assessment, and responsible disclosure practices.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section" aria-hidden="true">
+    <div style="overflow:hidden;width:100%">
+      <div class="marquee-inner">
+        <span>CTF Competitions</span><span class="dot">◆</span>
+        <span>Ethical Hacking</span><span class="dot">◆</span>
+        <span>Blockchain</span><span class="dot">◆</span>
+        <span>AI Security</span><span class="dot">◆</span>
+        <span>Digital Forensics</span><span class="dot">◆</span>
+        <span>Cloud Security</span><span class="dot">◆</span>
+        <span>Penetration Testing</span><span class="dot">◆</span>
+        <span>Hackathons</span><span class="dot">◆</span>
+        <span>CTF Competitions</span><span class="dot">◆</span>
+        <span>Ethical Hacking</span><span class="dot">◆</span>
+        <span>Blockchain</span><span class="dot">◆</span>
+        <span>AI Security</span><span class="dot">◆</span>
+        <span>Digital Forensics</span><span class="dot">◆</span>
+        <span>Cloud Security</span><span class="dot">◆</span>
+        <span>Penetration Testing</span><span class="dot">◆</span>
+        <span>Hackathons</span><span class="dot">◆</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVENTS (PAST) -->
+  <section id="events" class="section--alt" aria-labelledby="events-heading">
+    <div class="section-wrap">
+      <div class="section-eyebrow reveal">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">Events</span>
+      </div>
+      <div class="past-events-header reveal">
+        <h2 id="events-heading" class="section-title">Past<br>Events</h2>
+        <a href="#contact" class="all-events-link">Stay Updated →</a>
+      </div>
+
+      <div class="events-grid">
+        <!-- EVENT 1: Operation Blackout -->
+        <article class="event-card reveal" aria-label="Past event: Operation Blackout">
+          <div class="event-card-type">
+            <span>Cyber Challenge</span>
+            <span class="event-status-past">Past</span>
+          </div>
+          <h3>Operation:<br>Blackout</h3>
+          <p class="event-card-sub">A Cyber-Themed Logic Hunt &amp; Escape Challenge</p>
+          <p class="event-card-desc">
+            Solve puzzles. Crack clues. Make bold decisions. Stop the digital blackout using logic and teamwork — no coding required.
+          </p>
+          <div class="event-meta-grid">
+            <div class="meta-item">
+              <dt>Date</dt>
+              <dd>3rd February 2026</dd>
+            </div>
+            <div class="meta-item">
+              <dt>Time</dt>
+              <dd>4:45 PM – 6:30 PM</dd>
+            </div>
+            <div class="meta-item">
+              <dt>Venue</dt>
+              <dd>IT-213, CIT</dd>
+            </div>
+            <div class="meta-item">
+              <dt>Team Size</dt>
+              <dd>2 Members / Team</dd>
+            </div>
+          </div>
+          <div class="event-rounds">
+            <div class="event-rounds-title">Event Rounds</div>
+            <div class="round-item">
+              <div class="round-num">01</div>
+              <div class="round-content">
+                <h5>Intel Auction</h5>
+                <p>Solve logic challenges to earn points, then bid strategically for vital intelligence to advance your mission.</p>
+              </div>
+            </div>
+            <div class="round-item">
+              <div class="round-num">02</div>
+              <div class="round-content">
+                <h5>The Omega Envelope</h5>
+                <p>Decode layered clues, avoid traps, and assemble the final solution to prevent system collapse.</p>
+              </div>
+            </div>
+            <div class="prize-list">
+              <div class="prize-item"><span class="prize-dot"></span>Prizes for Top 3 Teams</div>
+              <div class="prize-item"><span class="prize-dot"></span>Certificates for Winners</div>
+              <div class="prize-item"><span class="prize-dot"></span>E-Certificates for All Participants</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- EVENT 2: Into the Matrix -->
+        <article class="event-card reveal" style="--delay:0.1s" aria-label="Past event: Into the Matrix">
+          <div class="event-card-type">
+            <span>Walk-In Event</span>
+            <span class="event-status-past">Past</span>
+          </div>
+          <h3>Into the<br>Matrix</h3>
+          <p class="event-card-sub">Bug Hunting, Decoding &amp; Cyber Awareness Challenge</p>
+          <p class="event-card-desc">
+            Test your skills in Bug Hunting and decoding hacker messages. Unleash creativity with Cyber Awareness Poster Design — a thrilling walk-in event for first-year tech enthusiasts.
+          </p>
+          <div class="event-meta-grid">
+            <div class="meta-item">
+              <dt>Organized By</dt>
+              <dd>Cyber Club CIT</dd>
+            </div>
+            <div class="meta-item">
+              <dt>Venue</dt>
+              <dd>Coimbatore Institute of Technology</dd>
+            </div>
+            <div class="meta-item">
+              <dt>Format</dt>
+              <dd>Walk-In</dd>
+            </div>
+            <div class="meta-item">
+              <dt>Target</dt>
+              <dd>First-Year Students</dd>
+            </div>
+          </div>
+          <div class="event-tags">
+            <span class="tag">Bug Hunting</span>
+            <span class="tag">Decode Messages</span>
+            <span class="tag">Poster Design</span>
+            <span class="tag">Walk-in</span>
+            <span class="tag">Open to All</span>
+          </div>
+          <div class="event-rounds">
+            <div class="event-rounds-title">Tracks</div>
+            <div class="round-item">
+              <div class="round-num">01</div>
+              <div class="round-content">
+                <h5>Bug Hunting</h5>
+                <p>Find and identify vulnerabilities hidden in sample code and web pages under timed conditions.</p>
+              </div>
+            </div>
+            <div class="round-item">
+              <div class="round-num">02</div>
+              <div class="round-content">
+                <h5>Cyber Awareness Poster Design</h5>
+                <p>Design creative posters promoting digital safety and cyber hygiene across campus.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" aria-labelledby="team-heading">
+    <div class="section-wrap">
+      <div class="section-eyebrow reveal">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">The Team</span>
+      </div>
+      <h2 id="team-heading" class="section-title reveal">Secretaries</h2>
+
+      <div class="team-grid">
+        <!-- Nekilesh — Secretary -->
+       <article class="team-card reveal" style="--delay:0s">
+  <div class="team-photo-wrap">
+    <img src="nekilesh m.png" alt="Nekilesh" class="team-photo"/>
+  </div>
+  <div class="team-info">
+    <div class="team-role">Secretary</div>
+    <div class="team-name">Nekilesh</div>
+    <p class="team-bio">Secretary of Cyber Club CIT, driving technical initiatives, CTF teams, and community growth at Coimbatore Institute of Technology.</p>
+    <div class="team-contact">
+      <div class="team-contact-item">
+        <span class="tc-label">Phone</span>
+        <a href="tel:+918637608974">+91 863 760 8974</a>
+      </div>
+      <div class="team-contact-item">
+        <span class="tc-label">Dept</span>
+        <span>Information Technology, CIT</span>
+      </div>
+    </div>
+  </div>
+</article>
+
+        <!-- Shahila — Secretary -->
+        <article class="team-card reveal" style="--delay:0.1s">
+          <div class="team-photo-wrap">
+            <img src="shahila.png" alt="Shahila" class="team-photo"/>
+          </div>
+          <div class="team-info">
+            <div class="team-role">Secretary</div>
+            <div class="team-name">Shahila</div>
+            <p class="team-bio">Secretary of Cyber Club CIT, contributing to event organization, workshops, and fostering a vibrant cybersecurity culture on campus.</p>
+            <div class="team-contact">
+              <div class="team-contact-item">
+                <span class="tc-label">Dept</span>
+                <span>Information Technology, CIT</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CORE VALUES -->
+  <section id="values" aria-labelledby="values-heading">
+    <div class="section-wrap">
+      <div class="section-eyebrow reveal">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">Core Values</span>
+      </div>
+      <h2 id="values-heading" class="section-title reveal">What We<br>Stand For</h2>
+
+      <div class="values-grid">
+        <div class="value-card reveal" style="--delay:0s" tabindex="0">
+          <div class="value-num">01</div>
+          <h3>Digital Ethics</h3>
+          <p>Responsible use of knowledge. Every exploit we learn, we learn to defend — never to harm.</p>
+        </div>
+        <div class="value-card reveal" style="--delay:0.08s" tabindex="0">
+          <div class="value-num">02</div>
+          <h3>Innovation</h3>
+          <p>Pushing beyond the textbook. We build, break, and rebuild — constantly iterating toward excellence.</p>
+        </div>
+        <div class="value-card reveal" style="--delay:0.16s" tabindex="0">
+          <div class="value-num">03</div>
+          <h3>Proactive Security</h3>
+          <p>We don't wait for threats. We anticipate, analyze, and neutralize before damage is done.</p>
+        </div>
+        <div class="value-card reveal" style="--delay:0.24s" tabindex="0">
+          <div class="value-num">04</div>
+          <h3>Technical Mastery</h3>
+          <p>Deep expertise over surface knowledge. We go from "how" to "why" in everything we do.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section--alt" aria-labelledby="contact-heading">
+    <div class="section-wrap">
+      <div class="section-eyebrow reveal">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">Contact</span>
+      </div>
+      <h2 id="contact-heading" class="section-title reveal">Get In<br>Touch</h2>
+
+      <div class="contact-grid">
+        <div class="reveal">
+          <p class="contact-lead">
+            Ready to join Cyber Club CIT? Have questions about events? Reach out to our team — we'd love to hear from you.
+          </p>
+          <dl class="contact-list">
+            <div class="contact-item">
+              <dt>Secretary</dt>
+              <dd>Nekilesh</dd>
+            </div>
+            <div class="contact-item">
+              <dt>Phone</dt>
+              <dd><a href="tel:+918637608974" class="contact-link">+91 863 760 8974</a></dd>
+            </div>
+            <div class="contact-item">
+              <dt>Institution</dt>
+              <dd>Coimbatore Institute of Technology</dd>
+            </div>
+            <div class="contact-item">
+              <dt>Location</dt>
+              <dd>Coimbatore, Tamil Nadu, India</dd>
+            </div>
+          </dl>
+          <div class="contact-actions">
+            <a href="tel:+918637608974" class="btn btn--primary">Call Now</a>
+            <a href="#events" class="btn btn--ghost">View Events</a>
+          </div>
+        </div>
+
+        <div class="reveal" style="--delay:0.1s">
+          <div class="terminal-window">
+            <div class="terminal-bar" aria-hidden="true">
+              <span class="tbar-dot tbar-dot--red"></span>
+              <span class="tbar-dot tbar-dot--yellow"></span>
+              <span class="tbar-dot tbar-dot--green"></span>
+              <span class="tbar-title">join@cit-cyber</span>
+            </div>
+            <div class="terminal-body" id="contactTermBody" aria-live="polite">
+              <div class="tl"><span class="p blink">█</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-brand-name">
+          <svg class="club-logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="50" cy="50" r="47" fill="none" stroke="#00e85a" stroke-width="2"/>
+            <path d="M50 18 L72 28 L72 52 C72 64 62 73 50 78 C38 73 28 64 28 52 L28 28 Z" fill="none" stroke="#5a7a8a" stroke-width="2.5"/>
+            <path d="M50 24 L66 32 L66 50 C66 60 58 68 50 72 C42 68 34 60 34 50 L34 32 Z" fill="#1a2a35" stroke="#5a7a8a" stroke-width="1.5"/>
+            <rect x="43" y="54" width="14" height="11" rx="2" fill="none" stroke="#00e85a" stroke-width="1.8"/>
+            <path d="M46 54 L46 50 C46 47 54 47 54 50 L54 54" fill="none" stroke="#00e85a" stroke-width="1.8"/>
+            <circle cx="50" cy="59" r="1.5" fill="#00e85a"/>
+            <line x1="50" y1="60.5" x2="50" y2="63" stroke="#00e85a" stroke-width="1.4"/>
+            <ellipse cx="50" cy="38" rx="5" ry="5.5" fill="none" stroke="#6a8a9a" stroke-width="1.5"/>
+            <circle cx="48.2" cy="36.5" r="0.8" fill="#00e85a"/>
+            <circle cx="51.8" cy="36.5" r="0.8" fill="#00e85a"/>
+            <path d="M48.5 39.5 L50 41.5 L51.5 39.5" fill="none" stroke="#00e85a" stroke-width="1"/>
+            <path d="M45 40 C38 36 28 38 22 34 C25 40 30 43 36 44 C34 46 30 47 26 46 C29 50 35 50 41 48 L45 46" fill="none" stroke="#5a7a8a" stroke-width="1.5"/>
+            <path d="M55 40 C62 36 72 38 78 34 C75 40 70 43 64 44 C66 46 70 47 74 46 C71 50 65 50 59 48 L55 46" fill="none" stroke="#5a7a8a" stroke-width="1.5"/>
+            <path d="M45 40 C40 38 32 39 24 36 C27 41 33 44 40 45 L45 46" fill="#1e3040" stroke="none" opacity="0.7"/>
+            <path d="M55 40 C60 38 68 39 76 36 C73 41 67 44 60 45 L55 46" fill="#1e3040" stroke="none" opacity="0.7"/>
+          </svg>
+          <span class="footer-brand-name-text">Cyber Club CIT</span>
+        </div>
+        <p class="footer-desc">A community driven cybersecurity chapter focused on ethical hacking, practical learning, and collaborative security research.</p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <div class="footer-col-links">
+          <a href="#about">About</a>
+          <a href="#what-we-do">What We Do</a>
+          <a href="#events">Events</a>
+          <a href="#team">Team</a>
+          <a href="#values">Values</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <div class="footer-col-links">
+          <a href="https://www.instagram.com/cyberclub_cit/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://www.linkedin.com/company/cyber-club-cit" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Location</div>
+        <div class="footer-col-links">
+          <a href="#">Coimbatore, India</a>
+          <a href="#">CIT Campus</a>
+          <a href="#">Est. 2024</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Cyber Club CIT · All rights reserved</span>
+      <span class="footer-status">
+        <span class="status-dot"></span>
+        Systems Live
+      </span>
+      <span class="footer-made">made for hackers, by hackers.</span>
+    </div>
+  </footer>
+
+  <!-- HIRING BANNER -->
+  <div class="hiring-banner" id="hiringBanner" role="complementary" aria-label="Hiring open">
+    <span class="hiring-banner-text">⚡ We're Hiring — Applications Close In:</span>
+    <div class="hiring-banner-timer">
+      <span id="hbD">--</span><span class="hb-sep">d</span>
+      <span style="opacity:0.4">·</span>
+      <span id="hbH">--</span><span class="hb-sep">h</span>
+      <span style="opacity:0.4">·</span>
+      <span id="hbM">--</span><span class="hb-sep">m</span>
+      <span style="opacity:0.4">·</span>
+      <span id="hbS">--</span><span class="hb-sep">s</span>
+    </div>
+    <a href="#contact" class="hiring-banner-btn">Apply Now →</a>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    // ---- COUNTDOWN — Hiring Deadline ----
+    const TARGET = new Date('2026-04-09T23:59:00+05:30').getTime();
+    function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
+    function updateTimer() {
+      const now = Date.now();
+      const diff = TARGET - now;
+      const expired = diff <= 0;
+
+      const days  = expired ? 0 : Math.floor(diff / 86400000);
+      const hours = expired ? 0 : Math.floor((diff % 86400000) / 3600000);
+      const mins  = expired ? 0 : Math.floor((diff % 3600000)  / 60000);
+      const secs  = expired ? 0 : Math.floor((diff % 60000)    / 1000);
+      const vals = [days, hours, mins, secs];
+
+      // Hero timer
+      ['hD','hH','hM','hS'].forEach((id, i) => { const el = document.getElementById(id); if(el) el.textContent = pad(vals[i]); });
+      // Nav timer
+      ['navD','navH','navM','navS'].forEach((id, i) => { const el = document.getElementById(id); if(el) el.textContent = pad(vals[i]); });
+      // Banner timer
+      ['hbD','hbH','hbM','hbS'].forEach((id, i) => { const el = document.getElementById(id); if(el) el.textContent = pad(vals[i]); });
+
+      // Hide banner and hero timer if expired
+      const banner = document.getElementById('hiringBanner');
+      const heroTimer = document.querySelector('.hero-timer-row');
+      if (expired) {
+        if (banner) { banner.style.background = '#222'; banner.querySelector('.hiring-banner-text').textContent = '⛔ Hiring Closed — Stay tuned for next intake'; banner.querySelector('.hiring-banner-btn').style.display = 'none'; banner.querySelector('.hiring-banner-timer').style.display = 'none'; }
+        document.body.style.paddingBottom = '48px';
+      }
+    }
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+    // ---- MOBILE MENU ----
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeMenu');
+    const overlay = document.getElementById('mobileMenu');
+    const mLinks = document.querySelectorAll('.m-link');
+    function openMenu() { overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+    function closeMenu() { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+    if(menuBtn) menuBtn.addEventListener('click', openMenu);
+    if(closeBtn) closeBtn.addEventListener('click', closeMenu);
+    mLinks.forEach(l => l.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
+
+    // ---- SCROLL REVEAL ----
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ---- STAT COUNTERS ----
+    const statEls = document.querySelectorAll('.hstat-n[data-count]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const end = parseInt(el.dataset.count, 10);
+        const dur = 1000;
+        const start = performance.now();
+        function step(now) {
+          const t = Math.min(1, (now - start) / dur);
+          const ease = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(ease * end);
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    statEls.forEach(el => counterObserver.observe(el));
+
+    // ---- CANVAS PARTICLES ----
+    const canvas = document.getElementById('heroCanvas');
+    if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const ctx = canvas.getContext('2d');
+      const NODES = 50, RADIUS = 130, SPEED = 0.25;
+      let W, H, particles = [], raf;
+      function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+      function Particle() {
+        this.x = Math.random() * W; this.y = Math.random() * H;
+        this.vx = (Math.random()-0.5)*SPEED; this.vy = (Math.random()-0.5)*SPEED;
+        this.r = Math.random()*1.2+0.4;
+      }
+      Particle.prototype.update = function() {
+        this.x += this.vx; this.y += this.vy;
+        if(this.x<0||this.x>W) this.vx*=-1;
+        if(this.y<0||this.y>H) this.vy*=-1;
+      };
+      function init() { resize(); particles = Array.from({length:NODES},()=>new Particle()); }
+      function draw() {
+        ctx.clearRect(0,0,W,H);
+        particles.forEach(p=>p.update());
+        for(let i=0;i<particles.length;i++) {
+          for(let j=i+1;j<particles.length;j++) {
+            const a=particles[i],b=particles[j];
+            const dx=a.x-b.x,dy=a.y-b.y;
+            const dist=Math.sqrt(dx*dx+dy*dy);
+            if(dist<RADIUS) {
+              const alpha=(1-dist/RADIUS)*0.12;
+              ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+              ctx.strokeStyle=`rgba(0,232,90,${alpha})`; ctx.lineWidth=0.5; ctx.stroke();
+            }
+          }
+        }
+        particles.forEach(p => {
+          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fillStyle='rgba(0,232,90,0.25)'; ctx.fill();
+        });
+        raf = requestAnimationFrame(draw);
+      }
+      init(); draw();
+      let rTimer;
+      window.addEventListener('resize', () => { clearTimeout(rTimer); rTimer=setTimeout(()=>{ cancelAnimationFrame(raf); init(); draw(); },150); },{passive:true});
+      document.addEventListener('visibilitychange',()=>{ if(document.hidden) cancelAnimationFrame(raf); else draw(); });
+    }
+
+    // ---- CONTACT TERMINAL ----
+    const LINES = [
+      { type:'cmd', text:'./join_club.sh --apply' },
+      { type:'output', text:'[+] Checking eligibility...' },
+      { type:'success', text:'[✓] CIT student: YES' },
+      { type:'success', text:'[✓] Interest in cyber: YES' },
+      { type:'output', text:'[+] Preparing onboarding kit...' },
+      { type:'success', text:'[ OK ] You\'re ready to join!' },
+      { type:'success', text:'[ ** ] Contact Nekilesh: +91 863 760 8974' },
+    ];
+    const DELAYS = { cmd:700, output:380, success:320 };
+    let rendered = false;
+    function buildLine(line) {
+      const el = document.createElement('div');
+      if (line.type==='cmd') { el.className='tl'; el.innerHTML=`<span class="p">$</span> <span class="c">${line.text}</span>`; }
+      else if (line.type==='success') { el.className='tl o s'; el.textContent=line.text; }
+      else { el.className='tl o'; el.textContent=line.text; }
+      el.style.opacity='0'; el.style.transform='translateX(-5px)'; el.style.transition='opacity 0.3s ease, transform 0.3s ease';
+      return el;
+    }
+    function renderContactTerm(container) {
+      if (rendered) return; rendered=true;
+      container.innerHTML='';
+      let i=0;
+      function nextLine() {
+        if(i>=LINES.length) { const cur=document.createElement('div'); cur.className='tl'; cur.innerHTML='<span class="p blink">█</span>'; container.appendChild(cur); return; }
+        const el=buildLine(LINES[i]);
+        container.appendChild(el);
+        requestAnimationFrame(()=>requestAnimationFrame(()=>{ el.style.opacity='1'; el.style.transform='translateX(0)'; }));
+        i++;
+        setTimeout(nextLine, DELAYS[LINES[i-1].type]||400);
+      }
+      nextLine();
+    }
+    const contactTerm = document.getElementById('contactTermBody');
+    if (contactTerm) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting) { setTimeout(()=>renderContactTerm(contactTerm),200); obs.disconnect(); } });
+      }, {threshold:0.35});
+      obs.observe(contactTerm);
+    }
+
+  })();
+  </script>
+</body>
+</html>
