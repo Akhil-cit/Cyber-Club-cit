@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cyber Club CIT — Coimbatore Institute of Technology</title>
-  <meta name="description" content="Student-driven cybersecurity community at Coimbatore Institute of Technology.">
+  <title>Members — Cyber Club CIT</title>
+  <meta name="description" content="Meet the members of Cyber Club CIT at Coimbatore Institute of Technology.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/global.css">
+  <script src="js/members-config.js"></script>
 </head>
-<body data-page="index">
+<body data-page="members">
 
-  <!-- NAV -->
   <nav id="navbar" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" aria-label="Cyber Club CIT home">
@@ -37,7 +37,6 @@
     </div>
   </nav>
 
-  <!-- MOBILE MENU -->
   <div class="mobile-overlay" id="mobileMenu" aria-hidden="true" role="dialog">
     <button class="close-btn" id="closeMenu" aria-label="Close menu">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="15" y1="5" x2="5" y2="15"/><line x1="5" y1="5" x2="15" y2="15"/></svg>
@@ -56,89 +55,18 @@
     </div>
   </div>
 
-  <!-- HERO -->
-  <section id="hero" aria-label="Hero">
-    <div class="hero-canvas-wrap">
-      <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="page-header">
+    <div class="section-eyebrow reveal">
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text">Our Team</span>
     </div>
+    <h1 class="section-title reveal">Members</h1>
+  </div>
 
-    <div class="hero-eyebrow-bar">
-      <div class="hero-eyebrow">
-        <span class="status-dot" aria-hidden="true"></span>
-        <span>— Exploring the digital frontier, one terminal at a time.</span>
-      </div>
-    </div>
-
-    <div class="hero-body">
-      <div class="hero-left">
-        <h1 class="hero-title">CYBER<br>CLUB<br>CIT</h1>
-
-        <p class="hero-desc">A community of security researchers, ethical hackers, and technology enthusiasts at Coimbatore Institute of Technology.</p>
-        <p class="hero-sub-desc">Dept. of Information Technology — CIT, Coimbatore</p>
-
-        <div class="event-cards-row">
-          <div class="event-mini-card">
-            <div class="emc-type">Past Event</div>
-            <div class="emc-title">Operation: Blackout</div>
-            <div class="emc-date">3rd February 2026</div>
-            <div class="emc-venue">IT-213, CIT</div>
-          </div>
-          <div class="event-mini-card">
-            <div class="emc-type">Past Event</div>
-            <div class="emc-title">Into the Matrix</div>
-            <div class="emc-date">2024</div>
-            <div class="emc-venue">Coimbatore Institute of Technology</div>
-          </div>
-        </div>
-
-        <div class="hero-cta">
-          <a href="events.html" class="btn btn--primary">View Past Events</a>
-          <a href="members.html" class="btn btn--ghost">Meet the Members</a>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <div class="terminal-window" role="complementary" aria-label="Terminal">
-          <div class="terminal-bar" aria-hidden="true">
-            <span class="tbar-dot tbar-dot--red"></span>
-            <span class="tbar-dot tbar-dot--yellow"></span>
-            <span class="tbar-dot tbar-dot--green"></span>
-            <span class="tbar-title">hacker@cit ~ zsh — 80x24</span>
-          </div>
-          <div class="terminal-body" id="terminalBody" aria-live="polite">
-            <div class="tl"><span class="p">$</span> <span class="c">nmap -sV citcyberclub.in</span></div>
-            <div class="tl o">Starting Nmap 7.94...</div>
-            <div class="tl o">PORT&nbsp;&nbsp;&nbsp;&nbsp; STATE SERVICE</div>
-            <div class="tl o s">22/tcp&nbsp;&nbsp; open&nbsp; ssh</div>
-            <div class="tl o s">443/tcp&nbsp; open&nbsp; https</div>
-            <div class="tl"><span class="p">$</span> <span class="c">whoami</span></div>
-            <div class="tl o s">hacker</div>
-            <div class="tl"><span class="p">$</span> <span class="c">./join_community.sh</span></div>
-            <div class="tl o">[ OK ] Connecting to CIT node...</div>
-            <div class="tl o s">[ OK ] Welcome to Cyber Club CIT</div>
-            <div class="tl o s">[ ** ] Systems live_</div>
-            <div class="tl cursor-line"><span class="p blink">█</span></div>
-          </div>
-        </div>
-        <div class="hero-stat-grid" aria-label="Club statistics">
-          <div class="hstat">
-            <span class="hstat-n" data-count="50">0</span>
-            <span class="hstat-l">Members</span>
-          </div>
-          <div class="hstat">
-            <span class="hstat-n" data-count="5">0</span>
-            <span class="hstat-l">Events</span>
-          </div>
-          <div class="hstat">
-            <span class="hstat-n" data-count="3">0</span>
-            <span class="hstat-l">CTFs</span>
-          </div>
-        </div>
-      </div>
-    </div>
+  <section id="members" aria-labelledby="members-heading">
+    <div class="section-wrap" id="membersContainer"></div>
   </section>
 
-  <!-- FOOTER -->
   <footer role="contentinfo">
     <div class="footer-top">
       <div class="footer-brand">
@@ -148,7 +76,6 @@
         </div>
         <p class="footer-desc">A community driven cybersecurity chapter focused on ethical hacking, practical learning, and collaborative security research.</p>
       </div>
-
       <div>
         <div class="footer-col-title">Navigate</div>
         <div class="footer-col-links">
@@ -160,7 +87,6 @@
           <a href="values.html">Values</a>
         </div>
       </div>
-
       <div>
         <div class="footer-col-title">Connect</div>
         <div class="footer-col-links">
@@ -168,7 +94,6 @@
           <a href="https://www.linkedin.com/company/cyber-club-cit" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </div>
-
       <div>
         <div class="footer-col-title">Location</div>
         <div class="footer-col-links">
@@ -178,17 +103,67 @@
         </div>
       </div>
     </div>
-
     <div class="footer-bottom">
       <span class="footer-copy">© 2026 Cyber Club CIT · All rights reserved</span>
-      <span class="footer-status">
-        <span class="status-dot"></span>
-        Systems Live
-      </span>
+      <span class="footer-status"><span class="status-dot"></span> Systems Live</span>
       <span class="footer-made">made for hackers, by hackers.</span>
     </div>
   </footer>
 
   <script src="js/global.js"></script>
+  <script>
+    function renderMembers() {
+      var config = CYBER_CLUB_CONFIG;
+      var saved = localStorage.getItem('cyberclub_config');
+      if (saved) {
+        try { config = JSON.parse(saved); } catch(e) {}
+      }
+      var container = document.getElementById('membersContainer');
+      if (!container) return;
+      var html = '';
+      for (var g = 0; g < config.groups.length; g++) {
+        var group = config.groups[g];
+        html += '<h2 class="team-role-heading reveal">' + escHtml(group.name) + '</h2>';
+        html += '<div class="team-grid">';
+        for (var m = 0; m < group.members.length; m++) {
+          var member = group.members[m];
+          var delay = (m * 0.1).toFixed(1) + 's';
+          html += '<article class="team-card reveal" style="--delay:' + delay + '">';
+          html += '<div class="team-photo-wrap">';
+          if (member.photo) {
+            html += '<img src="' + escHtml(member.photo) + '" alt="' + escHtml(member.name) + '" class="team-photo"/>';
+          } else {
+            var initials = member.name.split(' ').map(function(w){ return w[0]; }).join('').substring(0,2).toUpperCase();
+            html += '<div class="team-photo-placeholder">' + escHtml(initials) + '</div>';
+          }
+          html += '</div>';
+          html += '<div class="team-info">';
+          html += '<div class="team-role">' + escHtml(member.role) + '</div>';
+          html += '<div class="team-name">' + escHtml(member.name) + '</div>';
+          html += '<div class="team-dept">' + escHtml(member.dept) + '</div>';
+          html += '</div></article>';
+        }
+        html += '</div>';
+      }
+      container.innerHTML = html;
+    }
+    function escHtml(s) {
+      if (!s) return '';
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    renderMembers();
+    // Observe dynamically rendered reveal elements
+    var robserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          robserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('#membersContainer .reveal').forEach(function(el) {
+      robserver.observe(el);
+    });
+  </script>
 </body>
 </html>

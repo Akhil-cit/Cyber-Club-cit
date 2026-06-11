@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin — Cyber Club CIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+  <style>
+    .login-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .login-box {
+      background: var(--bg2);
+      border: 1px solid var(--border-md);
+      padding: 2.5rem 2rem; width: 340px; max-width: 90vw;
+    }
+    .login-box h1 {
+      font-family: var(--font-disp);
+      font-size: 1.1rem;
+      color: var(--text-bright);
+      margin-bottom: 0.25rem;
+      text-align: center;
+    }
+    .login-box p {
+      font-size: 0.75rem; color: var(--text);
+      text-align: center; margin-bottom: 1.5rem;
+    }
+    .login-box .form-group {
+      margin-bottom: 1rem;
+    }
+    .login-box label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .login-box input {
+      width: 100%; padding: 0.55rem 0.7rem;
+      background: var(--bg); border: 1px solid var(--border-md);
+      color: var(--text-bright); font-family: var(--font-mono);
+      font-size: 0.8rem; box-sizing: border-box;
+    }
+    .login-box input:focus { outline: none; border-color: var(--accent); }
+    .login-error { color: #ff5a5a; font-size: 0.7rem; text-align: center; margin-top: 0.5rem; display: none; }
+    .admin-body { display: none; }
+    .admin-body.active { display: block; }
+    .admin-header {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border-md);
+      padding: 0.8rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .admin-header h2 {
+      font-family: var(--font-disp);
+      font-size: 0.95rem;
+      color: var(--text-bright);
+    }
+    .admin-header .admin-actions { display: flex; gap: 0.6rem; align-items: center; }
+    .admin-nav {
+      display: flex; gap: 0.25rem;
+      background: var(--bg);
+      padding: 0.25rem;
+      border: 1px solid var(--border-md);
+    }
+    .admin-nav a {
+      padding: 0.35rem 0.8rem;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    .admin-nav a.active { background: var(--accent); color: #000; }
+    .admin-panel { padding: 1.5rem 2rem; max-width: 1000px; }
+    .admin-panel.hidden { display: none; }
+    .admin-panel h3 {
+      font-family: var(--font-disp);
+      font-size: 1rem;
+      color: var(--text-bright);
+      margin-bottom: 1rem;
+    }
+    .admin-group-card {
+      background: var(--bg2);
+      border: 1px solid var(--border-md);
+      margin-bottom: 1rem;
+    }
+    .admin-group-header {
+      padding: 0.7rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-md);
+    }
+    .admin-group-header h4 {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .admin-group-body { padding: 0.75rem 1rem; }
+    .admin-member-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-dim);
+    }
+    .admin-member-row:last-child { border-bottom: none; }
+    .admin-member-row .am-thumb {
+      width: 36px; height: 36px; object-fit: cover;
+      border: 1px solid var(--border-md);
+      background: var(--bg3);
+      flex-shrink: 0;
+    }
+    .admin-member-row .am-info { flex: 1; }
+    .admin-member-row .am-name {
+      font-size: 0.82rem; color: var(--text-bright); font-weight: 600;
+    }
+    .admin-member-row .am-role {
+      font-size: 0.65rem; color: var(--text); opacity: 0.7;
+    }
+    .admin-member-row .am-actions { display: flex; gap: 0.4rem; }
+    .btn-sm {
+      padding: 0.25rem 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      cursor: pointer;
+      border: 1px solid var(--border-md);
+      background: var(--bg);
+      color: var(--text);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .btn-sm:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-sm.danger:hover { border-color: #ff5a5a; color: #ff5a5a; }
+    .btn-sm.primary { background: var(--accent); color: #000; border-color: var(--accent); }
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.7);
+      display: none; align-items: center; justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      background: var(--bg2);
+      border: 1px solid var(--border-md);
+      padding: 2rem;
+      width: 650px; max-width: 95vw;
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal-box h3 {
+      font-family: var(--font-disp);
+      font-size: 0.95rem;
+      color: var(--text-bright);
+      margin-bottom: 1rem;
+    }
+    .modal-box .form-group { margin-bottom: 0.8rem; }
+    .modal-box label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+    .modal-box input, .modal-box select {
+      width: 100%; padding: 0.5rem 0.6rem;
+      background: var(--bg); border: 1px solid var(--border-md);
+      color: var(--text-bright); font-family: var(--font-mono);
+      font-size: 0.75rem; box-sizing: border-box;
+    }
+    .modal-box input:focus, .modal-box select:focus { outline: none; border-color: var(--accent); }
+    .modal-actions { display: flex; gap: 0.5rem; margin-top: 1rem; justify-content: flex-end; }
+    .crop-wrap {
+      max-height: 400px; margin-bottom: 0.8rem;
+      background: #000; border: 1px solid var(--border-md);
+    }
+    .crop-wrap img { max-width: 100%; }
+    .crop-preview {
+      display: flex; align-items: center; gap: 1rem;
+      margin-top: 0.5rem; padding: 0.8rem;
+      background: var(--bg); border: 1px solid var(--border-dim);
+    }
+    .crop-preview img {
+      width: 90px; height: 90px; object-fit: cover;
+      border: 1px solid var(--border-md); flex-shrink: 0;
+    }
+    .crop-preview span {
+      font-size: 0.7rem; color: var(--text); opacity: 0.7;
+    }
+    .modal-box .form-group { margin-bottom: 1rem; }
+    .modal-box input, .modal-box select {
+      padding: 0.6rem 0.8rem; font-size: 0.8rem;
+    }
+    .modal-box label { font-size: 0.65rem; margin-bottom: 0.35rem; }
+    .status-msg {
+      position: fixed; bottom: 1rem; right: 1rem;
+      padding: 0.6rem 1rem;
+      background: var(--bg2);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      z-index: 300;
+      display: none;
+    }
+    .add-group-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .add-group-row input { flex: 1; }
+    .empty-state {
+      text-align: center; padding: 3rem 1rem;
+      color: var(--text); font-size: 0.8rem; opacity: 0.6;
+    }
+    @media (max-width: 700px) {
+      .admin-panel { padding: 1rem; }
+      .admin-header { padding: 0.6rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body style="background:var(--bg);">
+
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-box">
+      <h1>Admin Panel</h1>
+      <p>Cyber Club CIT — Member Management</p>
+      <div class="form-group">
+        <label for="loginUser">Username</label>
+        <input type="text" id="loginUser" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label for="loginPass">Password</label>
+        <input type="password" id="loginPass">
+      </div>
+      <button class="btn btn--primary" id="loginBtn" style="width:100%;">Sign In</button>
+      <div class="login-error" id="loginError">Invalid credentials</div>
+    </div>
+  </div>
+
+  <div class="admin-body" id="adminBody">
+    <div class="admin-header">
+      <h2>🔧 Admin Panel</h2>
+      <div class="admin-actions">
+        <div class="admin-nav">
+          <a class="active" data-panel="members">Members</a>
+          <a data-panel="settings">Settings</a>
+          <a data-panel="export">Export</a>
+          <a data-panel="github">GitHub</a>
+        </div>
+        <button class="btn-sm" id="logoutBtn">Logout</button>
+      </div>
+    </div>
+
+    <div class="admin-panel" id="panelMembers">
+      <h3>Members</h3>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;">
+        <button class="btn-sm primary" id="addGroupBtn">+ Add Group</button>
+        <button class="btn-sm primary" id="addMemberBtn">+ Add Member</button>
+      </div>
+      <div id="membersList"></div>
+    </div>
+
+    <div class="admin-panel hidden" id="panelSettings">
+      <h3>Site Settings</h3>
+      <div class="form-group">
+        <label>Site Title</label>
+        <input type="text" id="setSiteTitle">
+      </div>
+      <div class="form-group">
+        <label>Subtitle</label>
+        <input type="text" id="setSubtitle">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" id="setDesc">
+      </div>
+      <div class="form-group">
+        <label>Footer Text</label>
+        <input type="text" id="setFooter">
+      </div>
+      <div class="form-group">
+        <label>Admin Username</label>
+        <input type="text" id="setAdminUser">
+      </div>
+      <div class="form-group">
+        <label>Admin Password</label>
+        <input type="text" id="setAdminPass">
+      </div>
+      <button class="btn-sm primary" id="saveSettingsBtn">Save Settings</button>
+    </div>
+
+    <div class="admin-panel hidden" id="panelExport">
+      <h3>Export Config</h3>
+      <p style="font-size:0.75rem;color:var(--text);margin-bottom:1rem;">
+        Download the updated config file. Replace <code>js/members-config.js</code> on the server with this file to make all changes permanent.
+      </p>
+      <button class="btn-sm primary" id="exportBtn">Download members-config.js</button>
+    </div>
+
+    <div class="admin-panel hidden" id="panelGithub">
+      <h3>Publish to GitHub</h3>
+      <p style="font-size:0.75rem;color:var(--text);margin-bottom:1rem;">
+        Push the updated config directly to your GitHub repo. Netlify auto-deploys.
+      </p>
+      <details style="margin-bottom:1rem;font-size:0.75rem;color:var(--text);opacity:0.7;">
+        <summary style="cursor:pointer;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;">Advanced Settings</summary>
+        <div style="margin-top:0.5rem;padding:0.8rem;background:var(--bg);border:1px solid var(--border-dim);display:flex;flex-direction:column;gap:0.6rem;">
+          <div><label style="font-family:var(--font-mono);font-size:0.55rem;display:block;margin-bottom:0.2rem;">Token</label><input type="password" id="ghToken" style="width:100%;padding:0.4rem 0.6rem;background:var(--bg2);border:1px solid var(--border-md);color:var(--text-bright);font-family:var(--font-mono);font-size:0.7rem;box-sizing:border-box;"></div>
+          <div><label style="font-family:var(--font-mono);font-size:0.55rem;display:block;margin-bottom:0.2rem;">Owner</label><input type="text" id="ghOwner" style="width:100%;padding:0.4rem 0.6rem;background:var(--bg2);border:1px solid var(--border-md);color:var(--text-bright);font-family:var(--font-mono);font-size:0.7rem;box-sizing:border-box;"></div>
+          <div><label style="font-family:var(--font-mono);font-size:0.55rem;display:block;margin-bottom:0.2rem;">Repo</label><input type="text" id="ghRepo" style="width:100%;padding:0.4rem 0.6rem;background:var(--bg2);border:1px solid var(--border-md);color:var(--text-bright);font-family:var(--font-mono);font-size:0.7rem;box-sizing:border-box;"></div>
+          <div><label style="font-family:var(--font-mono);font-size:0.55rem;display:block;margin-bottom:0.2rem;">Path</label><input type="text" id="ghPath" style="width:100%;padding:0.4rem 0.6rem;background:var(--bg2);border:1px solid var(--border-md);color:var(--text-bright);font-family:var(--font-mono);font-size:0.7rem;box-sizing:border-box;"></div>
+          <div><label style="font-family:var(--font-mono);font-size:0.55rem;display:block;margin-bottom:0.2rem;">Commit Message</label><input type="text" id="ghMsg" style="width:100%;padding:0.4rem 0.6rem;background:var(--bg2);border:1px solid var(--border-md);color:var(--text-bright);font-family:var(--font-mono);font-size:0.7rem;box-sizing:border-box;"></div>
+          <button class="btn-sm" id="saveGhSettingsBtn">Save</button>
+        </div>
+      </details>
+      <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+        <button class="btn-sm primary" id="publishBtn" style="padding:0.5rem 1.2rem;font-size:0.7rem;">🚀 Publish to GitHub</button>
+        <span id="publishStatus" style="font-size:0.65rem;font-family:var(--font-mono);color:var(--text);opacity:0.6;"></span>
+      </div>
+      <div id="publishLog" style="margin-top:1rem;padding:0.8rem;background:var(--bg);border:1px solid var(--border-dim);font-family:var(--font-mono);font-size:0.65rem;color:var(--text);max-height:200px;overflow-y:auto;white-space:pre-wrap;display:none;"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="memberModal">
+    <div class="modal-box">
+      <h3 id="memberModalTitle">Edit Member</h3>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="editName">
+      </div>
+      <div class="form-group">
+        <label>Role</label>
+        <input type="text" id="editRole">
+      </div>
+      <div class="form-group">
+        <label>Department / Year</label>
+        <input type="text" id="editDept">
+      </div>
+      <div class="form-group">
+        <label>Group</label>
+        <select id="editGroup"></select>
+      </div>
+      <div class="form-group">
+        <label>Photo — Upload &amp; Crop</label>
+        <input type="file" id="editPhotoInput" accept="image/*" style="margin-bottom:0.5rem;">
+        <div class="crop-wrap" id="cropWrap" style="display:none;">
+          <img id="cropImage" src="">
+        </div>
+        <div id="cropActions" style="display:none;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem;">
+          <button class="btn-sm primary" id="applyCropBtn">✓ Apply Crop</button>
+          <button class="btn-sm" id="resetCropBtn">↺ Reset</button>
+        </div>
+        <div class="crop-preview" id="cropPreview" style="display:none;">
+          <img id="previewImage" src="" alt="Cropped preview">
+          <span>Cropped photo saved — will appear on the members page</span>
+        </div>
+        <div style="display:flex;gap:0.4rem;margin-top:0.5rem;flex-wrap:wrap;">
+          <button class="btn-sm danger" id="clearPhotoBtn">✕ Remove Photo</button>
+        </div>
+        <div style="margin-top:0.4rem;font-size:0.65rem;color:var(--text);opacity:0.6;" id="currentPhotoLabel"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-sm" id="modalCancelBtn">Cancel</button>
+        <button class="btn-sm primary" id="modalSaveBtn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="groupModal">
+    <div class="modal-box">
+      <h3 id="groupModalTitle">Add Group</h3>
+      <div class="form-group">
+        <label>Group Name</label>
+        <input type="text" id="editGroupName">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-sm" id="groupModalCancelBtn">Cancel</button>
+        <button class="btn-sm primary" id="groupModalSaveBtn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="status-msg" id="statusMsg"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+  <script src="js/members-config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

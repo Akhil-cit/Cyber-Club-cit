@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cyber Club CIT — Coimbatore Institute of Technology</title>
-  <meta name="description" content="Student-driven cybersecurity community at Coimbatore Institute of Technology.">
+  <title>Values — Cyber Club CIT</title>
+  <meta name="description" content="Core values of Cyber Club CIT — Digital Ethics, Innovation, Proactive Security, and Technical Mastery.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/global.css">
 </head>
-<body data-page="index">
+<body data-page="values">
 
-  <!-- NAV -->
   <nav id="navbar" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" aria-label="Cyber Club CIT home">
@@ -21,7 +20,6 @@
           <span class="nav-sub">Official Student Chapter</span>
         </div>
       </a>
-
       <div class="nav-center" id="navLinks">
         <a href="index.html" class="nav-link">Home</a>
         <a href="about.html" class="nav-link">About</a>
@@ -30,14 +28,12 @@
         <a href="members.html" class="nav-link">Members</a>
         <a href="values.html" class="nav-link">Values</a>
       </div>
-
       <button class="hamburger" id="menuBtn" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
-  <!-- MOBILE MENU -->
   <div class="mobile-overlay" id="mobileMenu" aria-hidden="true" role="dialog">
     <button class="close-btn" id="closeMenu" aria-label="Close menu">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="15" y1="5" x2="5" y2="15"/><line x1="5" y1="5" x2="15" y2="15"/></svg>
@@ -56,89 +52,41 @@
     </div>
   </div>
 
-  <!-- HERO -->
-  <section id="hero" aria-label="Hero">
-    <div class="hero-canvas-wrap">
-      <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="page-header">
+    <div class="section-eyebrow reveal">
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text">Core Values</span>
     </div>
+    <h1 class="section-title reveal">What We<br>Stand For</h1>
+  </div>
 
-    <div class="hero-eyebrow-bar">
-      <div class="hero-eyebrow">
-        <span class="status-dot" aria-hidden="true"></span>
-        <span>— Exploring the digital frontier, one terminal at a time.</span>
-      </div>
-    </div>
-
-    <div class="hero-body">
-      <div class="hero-left">
-        <h1 class="hero-title">CYBER<br>CLUB<br>CIT</h1>
-
-        <p class="hero-desc">A community of security researchers, ethical hackers, and technology enthusiasts at Coimbatore Institute of Technology.</p>
-        <p class="hero-sub-desc">Dept. of Information Technology — CIT, Coimbatore</p>
-
-        <div class="event-cards-row">
-          <div class="event-mini-card">
-            <div class="emc-type">Past Event</div>
-            <div class="emc-title">Operation: Blackout</div>
-            <div class="emc-date">3rd February 2026</div>
-            <div class="emc-venue">IT-213, CIT</div>
-          </div>
-          <div class="event-mini-card">
-            <div class="emc-type">Past Event</div>
-            <div class="emc-title">Into the Matrix</div>
-            <div class="emc-date">2024</div>
-            <div class="emc-venue">Coimbatore Institute of Technology</div>
-          </div>
+  <section id="values" aria-labelledby="values-heading">
+    <div class="section-wrap">
+      <div class="values-grid">
+        <div class="value-card reveal" style="--delay:0s" tabindex="0">
+          <div class="value-num">01</div>
+          <h3>Digital Ethics</h3>
+          <p>Responsible use of knowledge. Every exploit we learn, we learn to defend — never to harm.</p>
         </div>
-
-        <div class="hero-cta">
-          <a href="events.html" class="btn btn--primary">View Past Events</a>
-          <a href="members.html" class="btn btn--ghost">Meet the Members</a>
+        <div class="value-card reveal" style="--delay:0.08s" tabindex="0">
+          <div class="value-num">02</div>
+          <h3>Innovation</h3>
+          <p>Pushing beyond the textbook. We build, break, and rebuild — constantly iterating toward excellence.</p>
         </div>
-      </div>
-
-      <div class="hero-right">
-        <div class="terminal-window" role="complementary" aria-label="Terminal">
-          <div class="terminal-bar" aria-hidden="true">
-            <span class="tbar-dot tbar-dot--red"></span>
-            <span class="tbar-dot tbar-dot--yellow"></span>
-            <span class="tbar-dot tbar-dot--green"></span>
-            <span class="tbar-title">hacker@cit ~ zsh — 80x24</span>
-          </div>
-          <div class="terminal-body" id="terminalBody" aria-live="polite">
-            <div class="tl"><span class="p">$</span> <span class="c">nmap -sV citcyberclub.in</span></div>
-            <div class="tl o">Starting Nmap 7.94...</div>
-            <div class="tl o">PORT&nbsp;&nbsp;&nbsp;&nbsp; STATE SERVICE</div>
-            <div class="tl o s">22/tcp&nbsp;&nbsp; open&nbsp; ssh</div>
-            <div class="tl o s">443/tcp&nbsp; open&nbsp; https</div>
-            <div class="tl"><span class="p">$</span> <span class="c">whoami</span></div>
-            <div class="tl o s">hacker</div>
-            <div class="tl"><span class="p">$</span> <span class="c">./join_community.sh</span></div>
-            <div class="tl o">[ OK ] Connecting to CIT node...</div>
-            <div class="tl o s">[ OK ] Welcome to Cyber Club CIT</div>
-            <div class="tl o s">[ ** ] Systems live_</div>
-            <div class="tl cursor-line"><span class="p blink">█</span></div>
-          </div>
+        <div class="value-card reveal" style="--delay:0.16s" tabindex="0">
+          <div class="value-num">03</div>
+          <h3>Proactive Security</h3>
+          <p>We don't wait for threats. We anticipate, analyze, and neutralize before damage is done.</p>
         </div>
-        <div class="hero-stat-grid" aria-label="Club statistics">
-          <div class="hstat">
-            <span class="hstat-n" data-count="50">0</span>
-            <span class="hstat-l">Members</span>
-          </div>
-          <div class="hstat">
-            <span class="hstat-n" data-count="5">0</span>
-            <span class="hstat-l">Events</span>
-          </div>
-          <div class="hstat">
-            <span class="hstat-n" data-count="3">0</span>
-            <span class="hstat-l">CTFs</span>
-          </div>
+        <div class="value-card reveal" style="--delay:0.24s" tabindex="0">
+          <div class="value-num">04</div>
+          <h3>Technical Mastery</h3>
+          <p>Deep expertise over surface knowledge. We go from "how" to "why" in everything we do.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer role="contentinfo">
     <div class="footer-top">
       <div class="footer-brand">
@@ -148,7 +96,6 @@
         </div>
         <p class="footer-desc">A community driven cybersecurity chapter focused on ethical hacking, practical learning, and collaborative security research.</p>
       </div>
-
       <div>
         <div class="footer-col-title">Navigate</div>
         <div class="footer-col-links">
@@ -160,7 +107,6 @@
           <a href="values.html">Values</a>
         </div>
       </div>
-
       <div>
         <div class="footer-col-title">Connect</div>
         <div class="footer-col-links">
@@ -168,7 +114,6 @@
           <a href="https://www.linkedin.com/company/cyber-club-cit" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </div>
-
       <div>
         <div class="footer-col-title">Location</div>
         <div class="footer-col-links">
@@ -178,13 +123,9 @@
         </div>
       </div>
     </div>
-
     <div class="footer-bottom">
       <span class="footer-copy">© 2026 Cyber Club CIT · All rights reserved</span>
-      <span class="footer-status">
-        <span class="status-dot"></span>
-        Systems Live
-      </span>
+      <span class="footer-status"><span class="status-dot"></span> Systems Live</span>
       <span class="footer-made">made for hackers, by hackers.</span>
     </div>
   </footer>
