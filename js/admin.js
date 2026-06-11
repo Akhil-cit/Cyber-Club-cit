@@ -183,6 +183,37 @@
     showStatus('Cropped photo applied! Will save with member.');
   }
 
+  function getExistingPhotoUrl() {
+    var gIdx = editingGroupIdx;
+    var mIdx = editingMemberIdx;
+    if (gIdx === null || mIdx === null) return null;
+    var member = config.groups[gIdx].members[mIdx];
+    return member.photo || null;
+  }
+
+  function loadExistingIntoCropper() {
+    var photoUrl = getExistingPhotoUrl();
+    if (!photoUrl) { showStatus('No photo to re-crop', true); return; }
+    var img = document.getElementById('cropImage');
+    img.src = photoUrl;
+    document.getElementById('cropWrap').style.display = 'block';
+    document.getElementById('cropActions').style.display = 'flex';
+    document.getElementById('cropPreview').style.display = 'none';
+    document.getElementById('currentPhotoLabel').textContent = '';
+    if (cropper) cropper.destroy();
+    cropper = new Cropper(img, {
+      aspectRatio: 1,
+      viewMode: 1,
+      autoCropArea: 0.85,
+      minCropBoxWidth: 90,
+      minCropBoxHeight: 90,
+      zoomable: true,
+      rotatable: true
+    });
+  }
+
+  document.getElementById('recropBtn').addEventListener('click', loadExistingIntoCropper);
+
   function openMemberModal(gIdx, mIdx) {
     editingMemberIdx = mIdx;
     editingGroupIdx = gIdx;
@@ -203,14 +234,18 @@
     sel.value = gIdx;
 
     resetCropUI();
-    if (member.photo && member.photo.indexOf('data:') === 0) {
-      showCropPreview(member.photo);
-      document.getElementById('currentPhotoLabel').textContent = 'Cropped photo saved in config';
-    } else if (member.photo) {
-      document.getElementById('currentPhotoLabel').textContent = 'Current photo: ' + member.photo;
-      document.getElementById('cropPreview').style.display = 'none';
+    if (member.photo) {
+      if (member.photo.indexOf('data:') === 0) {
+        showCropPreview(member.photo);
+        document.getElementById('currentPhotoLabel').textContent = 'Cropped photo in config';
+      } else {
+        document.getElementById('currentPhotoLabel').textContent = 'Photo: ' + member.photo;
+        document.getElementById('cropPreview').style.display = 'none';
+      }
+      document.getElementById('recropBtn').style.display = 'inline-block';
     } else {
       document.getElementById('currentPhotoLabel').textContent = 'No photo';
+      document.getElementById('recropBtn').style.display = 'none';
     }
 
     document.getElementById('modalSaveBtn').onclick = saveMemberHandler;
@@ -293,6 +328,7 @@
     resetCropUI();
     document.getElementById('currentPhotoLabel').textContent = 'No photo';
     document.getElementById('cropPreview').style.display = 'none';
+    document.getElementById('recropBtn').style.display = 'none';
 
     document.getElementById('modalSaveBtn').onclick = function() {
       var name = document.getElementById('editName').value.trim();
