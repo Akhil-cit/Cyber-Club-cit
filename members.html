@@ -120,39 +120,55 @@
       }
       var container = document.getElementById('membersContainer');
       if (!container) return;
-      var html = '';
+      container.innerHTML = '';
       for (var g = 0; g < config.groups.length; g++) {
         var group = config.groups[g];
         if (!group.members || !group.members.length) continue;
-        var gridHtml = '';
+        var grid = document.createElement('div');
+        grid.className = 'team-grid';
         for (var m = 0; m < group.members.length; m++) {
           var member = group.members[m];
           if (!member || !member.name) continue;
           try {
             var delay = (m * 0.1).toFixed(1) + 's';
-            var card = '<article class="team-card reveal" style="--delay:' + delay + '">';
-            card += '<div class="team-photo-wrap">';
+            var card = document.createElement('article');
+            card.className = 'team-card reveal';
+            card.style.setProperty('--delay', delay);
+            var wrap = document.createElement('div');
+            wrap.className = 'team-photo-wrap';
             if (member.photo) {
-              card += '<img src="' + escHtml(member.photo) + '" alt="' + escHtml(member.name) + '" class="team-photo"/>';
+              var img = document.createElement('img');
+              img.src = member.photo;
+              img.alt = member.name;
+              img.className = 'team-photo';
+              wrap.appendChild(img);
             } else {
-              var initials = member.name.split(' ').map(function(w){ return w[0]; }).join('').substring(0,2).toUpperCase();
-              card += '<div class="team-photo-placeholder">' + escHtml(initials) + '</div>';
+              var ph = document.createElement('div');
+              ph.className = 'team-photo-placeholder';
+              ph.textContent = member.name.split(' ').map(function(w){ return w[0]; }).join('').substring(0,2).toUpperCase();
+              wrap.appendChild(ph);
             }
-            card += '</div>';
-            card += '<div class="team-info">';
-            card += '<div class="team-role">' + escHtml(member.role) + '</div>';
-            card += '<div class="team-name">' + escHtml(member.name) + '</div>';
-            card += '<div class="team-dept">' + escHtml(member.dept) + '</div>';
-            card += '</div></article>';
-            gridHtml += card;
+            card.appendChild(wrap);
+            var info = document.createElement('div');
+            info.className = 'team-info';
+            var r = document.createElement('div'); r.className = 'team-role';
+            if (member.role) r.textContent = member.role; info.appendChild(r);
+            var n = document.createElement('div'); n.className = 'team-name';
+            if (member.name) n.textContent = member.name; info.appendChild(n);
+            var d = document.createElement('div'); d.className = 'team-dept';
+            if (member.dept) d.textContent = member.dept; info.appendChild(d);
+            card.appendChild(info);
+            grid.appendChild(card);
           } catch(e) {}
         }
-        if (gridHtml) {
-          html += '<h2 class="team-role-heading reveal">' + escHtml(group.name) + '</h2>';
-          html += '<div class="team-grid">' + gridHtml + '</div>';
+        if (grid.children.length > 0) {
+          var heading = document.createElement('h2');
+          heading.className = 'team-role-heading reveal';
+          heading.textContent = group.name;
+          container.appendChild(heading);
+          container.appendChild(grid);
         }
       }
-      container.innerHTML = html;
     }
     function escHtml(s) {
       if (!s) return '';
