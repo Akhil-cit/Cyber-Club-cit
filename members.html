@@ -128,7 +128,9 @@
         grid.className = 'team-grid';
         for (var m = 0; m < group.members.length; m++) {
           var member = group.members[m];
-          if (!member || !member.name || (!member.role && !member.dept && !member.photo)) continue;
+          var hasName = member && member.name && member.name.trim().length > 0;
+          var hasInfo = (member && (member.role || member.dept || member.photo));
+          if (!hasName || !hasInfo) continue;
           try {
             var delay = (m * 0.1).toFixed(1) + 's';
             var card = document.createElement('article');
