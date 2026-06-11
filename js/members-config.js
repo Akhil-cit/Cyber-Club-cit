@@ -14,7 +14,7 @@ const CYBER_CLUB_CONFIG = {
     title: 'Cyber Club CIT',
     subtitle: 'Official Student Chapter',
     description: 'A community driven cybersecurity chapter focused on ethical hacking, practical learning, and collaborative security research.',
-    footer: '© 2026 Cyber Club CIT · All rights reserved'
+    footer: '\u00a9 2026 Cyber Club CIT \u00b7 All rights reserved'
   },
   groups: [
     {
