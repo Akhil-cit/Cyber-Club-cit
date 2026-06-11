@@ -848,13 +848,13 @@ mark {
 .team-card:hover::before { transform: scaleX(1); }
 .team-photo-wrap {
   flex-shrink: 0;
-  width: 90px;
-  height: 90px;
+  width: 160px;
+  height: 160px;
   position: relative;
 }
 .team-photo {
-  width: 90px;
-  height: 90px;
+  width: 160px;
+  height: 160px;
   object-fit: cover;
   object-position: top center;
   border: 1px solid var(--border-md);
@@ -864,15 +864,15 @@ mark {
 }
 .team-card:hover .team-photo { filter: grayscale(0%); }
 .team-photo-placeholder {
-  width: 90px;
-  height: 90px;
+  width: 160px;
+  height: 160px;
   background: var(--bg3);
   border: 1px solid var(--border-md);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-mono);
-  font-size: 1.4rem;
+  font-size: 2.4rem;
   font-weight: 700;
   color: var(--accent);
   letter-spacing: 0.02em;
@@ -898,7 +898,7 @@ mark {
 }
 .team-name {
   font-family: var(--font-disp);
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--text-bright);
   margin-bottom: 0.5rem;

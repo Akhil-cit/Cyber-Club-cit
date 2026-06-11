@@ -174,8 +174,8 @@
 
   function applyCrop() {
     if (!cropper) return;
-    var canvas = cropper.getCroppedCanvas({ width: 180, height: 180 });
-    croppedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+    var canvas = cropper.getCroppedCanvas({ width: 320, height: 320 });
+    croppedDataUrl = canvas.toDataURL('image/jpeg', 0.9);
     showCropPreview(croppedDataUrl);
     document.getElementById('cropWrap').style.display = 'none';
     document.getElementById('cropActions').style.display = 'none';
