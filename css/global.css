@@ -790,8 +790,8 @@ mark {
   text-align: center;
   transition: all 0.3s;
   position: relative;
-  overflow: visible;
-  border: 1px solid var(--border);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 8px;
   height: 100%;
 }
@@ -799,7 +799,7 @@ mark {
   background: var(--bg3);
   border-color: var(--accent);
   transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0, 232, 90, 0.15);
+  box-shadow: 0 12px 24px rgba(0, 232, 90, 0.12);
 }
 .team-photo-wrap {
   flex-shrink: 0;
@@ -976,6 +976,7 @@ mark {
   padding-left: var(--pad-x);
   padding-right: var(--pad-x);
   background: var(--bg);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 .page-header .section-title { margin-bottom: 0; }
 
@@ -1007,20 +1008,20 @@ mark {
 }
 
 /* ── Bootstrap Dark-Theme Overrides ── */
-.navbar { background: var(--nav-bg, rgba(10,10,15,0.92)); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border-dim); }
-.navbar-dark .navbar-nav .nav-link { color: var(--text); font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.5rem 0.9rem; transition: color 0.2s; }
+.navbar { background: var(--bg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+.navbar-dark .navbar-nav .nav-link { color: var(--text); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.5rem 0.9rem; transition: color 0.2s; }
 .navbar-dark .navbar-nav .nav-link:hover,
 .navbar-dark .navbar-nav .nav-link.active { color: var(--accent); }
 .navbar-toggler { color: var(--text); }
-.navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(200,210,220,0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
-footer { background: var(--nav-bg, rgba(10,10,15,0.95)); border-top: 1px solid var(--border-dim); }
-footer hr { border-color: var(--border-dim) !important; }
-.footer-col-title { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+.navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(136,136,136,0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
+footer { background: var(--bg); border-top: 1px solid rgba(255,255,255,0.05); }
+footer hr { border-color: rgba(255,255,255,0.05) !important; }
+.footer-col-title { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; font-weight: 700; }
 .footer-col-links { display: flex; flex-direction: column; gap: 0.4rem; }
-.footer-col-links a { color: var(--text); text-decoration: none; font-size: 0.8rem; font-family: var(--font-body); transition: color 0.2s; }
+.footer-col-links a { color: var(--text); text-decoration: none; font-size: 0.82rem; font-family: var(--font-disp); transition: color 0.2s; }
 .footer-col-links a:hover { color: var(--accent); }
-.footer-brand-name-text { font-family: var(--font-disp); font-weight: 700; font-size: 0.95rem; color: var(--text-bright); letter-spacing: 0.04em; }
-.footer-desc { font-family: var(--font-body); font-size: 0.75rem; color: var(--text); opacity: 0.65; line-height: 1.6; }
-.footer-copy { font-family: var(--font-mono); font-size: 0.55rem; color: var(--text); opacity: 0.4; }
-.footer-status { font-family: var(--font-mono); font-size: 0.55rem; color: var(--accent); opacity: 0.7; display: flex; align-items: center; gap: 0.3rem; }
-.footer-made { font-family: var(--font-mono); font-size: 0.5rem; color: var(--text); opacity: 0.3; letter-spacing: 0.08em; }
+.footer-brand-name-text { font-family: var(--font-disp); font-weight: 700; font-size: 1rem; color: var(--text-bright); letter-spacing: 0.04em; }
+.footer-desc { font-family: var(--font-disp); font-size: 0.78rem; color: var(--text); opacity: 0.7; line-height: 1.6; }
+.footer-copy { font-family: var(--font-mono); font-size: 0.58rem; color: var(--text); opacity: 0.5; }
+.footer-status { font-family: var(--font-mono); font-size: 0.58rem; color: var(--accent); opacity: 0.8; display: flex; align-items: center; gap: 0.3rem; font-weight: 600; }
+.footer-made { font-family: var(--font-mono); font-size: 0.52rem; color: var(--text); opacity: 0.4; letter-spacing: 0.08em; }
