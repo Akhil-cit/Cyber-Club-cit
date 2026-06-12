@@ -756,7 +756,7 @@ mark {
 /* ---- TEAM ---- */
 #members {
   background: var(--bg);
-  padding: 6rem var(--pad-x);
+  padding: 4rem var(--pad-x);
 }
 #membersContainer {
   background: var(--bg);
@@ -992,10 +992,16 @@ mark {
 @media (max-width: 768px) {
   :root { --pad-x: 1.5rem; }
   section { padding: 4rem var(--pad-x); }
+  #members { padding: 3rem var(--pad-x); }
   .activities-grid { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr 1fr; }
   .hero-title { font-size: clamp(3.5rem, 15vw, 7rem); }
   .event-meta-grid { grid-template-columns: 1fr; }
+  .team-cards-grid { grid-template-columns: 1fr; }
+  .team-card { padding: 1.5rem; }
+  .team-photo-wrap, .team-photo, .team-photo-placeholder { width: 120px; height: 120px; }
+  .team-photo-placeholder { font-size: 1.6rem; }
+  .team-name { font-size: 1.1rem; }
 }
 @media (max-width: 480px) {
   .values-grid { grid-template-columns: 1fr; }
