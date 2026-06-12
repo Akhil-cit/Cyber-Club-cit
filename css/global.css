@@ -23,7 +23,7 @@
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; font-size: 16px; background: var(--bg); }
 body {
   background: var(--bg);
   color: var(--text);
@@ -32,6 +32,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
+section, div, article, main, .container, .container-fluid { background: var(--bg); }
 a { text-decoration: none; color: inherit; }
 img, svg { display: block; }
 ul { list-style: none; }
