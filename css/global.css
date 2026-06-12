@@ -752,9 +752,9 @@ mark {
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
+  gap: 15px;
+  background: transparent;
+  border: none;
   max-width: 860px;
 }
 .team-card {
@@ -766,19 +766,14 @@ mark {
   transition: background 0.2s;
   position: relative;
   overflow: hidden;
+  border: 1px solid var(--border);
 }
-.team-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s var(--ease);
+.team-card:last-child {
+  background: #000000;
 }
-.team-card:hover { background: var(--bg3); }
-.team-card:hover::before { transform: scaleX(1); }
+.team-card:last-child:hover {
+  background: #1a1a1a;
+}
 .team-photo-wrap {
   flex-shrink: 0;
   width: 160px;
