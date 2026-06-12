@@ -774,7 +774,7 @@ mark {
   width: 100%;
 }
 .team-members-container { width: 100%; }
-.team-card-wrapper { height: 100%; }
+.team-card-wrapper { width: 100%; }
 .team-cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

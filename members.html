@@ -102,8 +102,11 @@
   <script src="js/global.js"></script>
   <script>
     function renderMembers() {
-      var config = CYBER_CLUB_CONFIG;
-      var saved = localStorage.getItem('cyberclub_config');
+      var config;
+      try { config = CYBER_CLUB_CONFIG; } catch(e) { config = null; }
+      if (!config || !config.groups) return;
+      var saved;
+      try { saved = localStorage.getItem('cyberclub_config'); } catch(e) {}
       if (saved) {
         try { config = JSON.parse(saved); } catch(e) {}
       }
