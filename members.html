@@ -149,6 +149,7 @@
               img.src = member.photo;
               img.alt = member.name;
               img.className = 'team-photo';
+              img.loading = 'lazy';
               wrap.appendChild(img);
             } else {
               var ph = document.createElement('div');
@@ -183,18 +184,6 @@
       return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     renderMembers();
-    // Observe dynamically rendered reveal elements
-    var robserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          robserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('#membersContainer .reveal').forEach(function(el) {
-      robserver.observe(el);
-    });
   </script>
 </body>
 </html>

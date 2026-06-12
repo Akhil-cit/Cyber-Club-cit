@@ -790,15 +790,15 @@ mark {
   gap: 1.2rem;
   align-items: center;
   text-align: center;
-  transition: all 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 8px;
   height: 100%;
+  will-change: transform;
 }
 .team-card:hover {
-  background: var(--bg3);
   border-color: var(--accent);
   transform: translateY(-6px);
   box-shadow: 0 12px 24px rgba(0, 232, 90, 0.12);
