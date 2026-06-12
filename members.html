@@ -117,10 +117,14 @@
       for (var g = 0; g < config.groups.length; g++) {
         var group = config.groups[g];
         if (!group.members || !group.members.length) continue;
+        
         var heading = document.createElement('h2');
         heading.className = 'team-role-heading';
         heading.textContent = group.name;
         mainWrapper.appendChild(heading);
+        
+        var gridContainer = document.createElement('div');
+        gridContainer.className = 'team-cards-grid';
         
         for (var m = 0; m < group.members.length; m++) {
           var member = group.members[m];
@@ -134,6 +138,7 @@
             var card = document.createElement('article');
             card.className = 'team-card';
             card.style.setProperty('--delay', delay);
+            
             var wrap = document.createElement('div');
             wrap.className = 'team-photo-wrap';
             if (member.photo) {
@@ -149,6 +154,7 @@
               wrap.appendChild(ph);
             }
             card.appendChild(wrap);
+            
             var info = document.createElement('div');
             info.className = 'team-info';
             var r = document.createElement('div'); r.className = 'team-role';
@@ -158,10 +164,13 @@
             var d = document.createElement('div'); d.className = 'team-dept';
             if (member.dept) d.textContent = member.dept; info.appendChild(d);
             card.appendChild(info);
+            
             wrapper.appendChild(card);
-            mainWrapper.appendChild(wrapper);
+            gridContainer.appendChild(wrapper);
           } catch(e) {}
         }
+        
+        mainWrapper.appendChild(gridContainer);
       }
       
       container.appendChild(mainWrapper);
