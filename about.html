@@ -7,25 +7,393 @@
   <meta name="description" content="Learn about Cyber Club CIT, the student-driven cybersecurity community at Coimbatore Institute of Technology.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/global.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* ── ROOT TOKENS ─────────────────────────────────────── */
+    :root {
+      --bg:          #000000;
+      --bg2:         #0a0a0a;
+      --bg3:         #111111;
+      --accent:      #00e85a;
+      --accent-dim:  rgba(0,232,90,0.13);
+      --border:      rgba(255,255,255,0.07);
+      --border-md:   rgba(255,255,255,0.12);
+      --border-hi:   rgba(0,232,90,0.45);
+      --text:        #888888;
+      --text-bright: #ffffff;
+      --text-mid:    #aaaaaa;
+      --font-mono:   'JetBrains Mono', 'Fira Code', monospace;
+      --font-disp:   'Space Grotesk', sans-serif;
+      --nav-h:       60px;
+      --pad-x:       clamp(1.5rem, 5vw, 5rem);
+      --ease:        cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ── RESET ───────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html  { scroll-behavior: smooth; background: var(--bg); }
+    body  {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-disp);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a   { text-decoration: none; color: inherit; }
+    img, svg { display: block; }
+    ul  { list-style: none; padding: 0; margin: 0; }
+    mark { background: none; color: var(--accent); }
+
+    /* ── SCROLLBAR ───────────────────────────────────────── */
+    ::-webkit-scrollbar       { width: 8px; background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 500;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .club-logo-icon { border-radius: 4px; width: 32px; height: 32px; object-fit: cover; }
+    .nav-title {
+      font-family: var(--font-disp);
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1.1;
+      letter-spacing: 0.06em;
+      color: var(--text-bright);
+    }
+    .nav-sub {
+      font-family: var(--font-mono);
+      font-size: 0.52rem;
+      opacity: 0.45;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    /* Bootstrap nav-link overrides */
+    .navbar-dark .navbar-nav .nav-link {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.5rem 0.85rem;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .navbar-dark .navbar-nav .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0.85rem; bottom: 4px;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.25s var(--ease);
+    }
+    .navbar-dark .navbar-nav .nav-link:hover,
+    .navbar-dark .navbar-nav .nav-link.active { color: var(--accent); }
+    .navbar-dark .navbar-nav .nav-link:hover::after,
+    .navbar-dark .navbar-nav .nav-link.active::after { width: calc(100% - 1.7rem); }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(136,136,136,0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    /* ── PAGE HEADER ─────────────────────────────────────── */
+    .page-header {
+      padding-top: calc(var(--nav-h) + 4rem);
+      padding-bottom: 3.5rem;
+      padding-left: var(--pad-x);
+      padding-right: var(--pad-x);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 6px rgba(0,232,90,0.5);
+    }
+    .eyebrow-text {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .section-title {
+      font-family: var(--font-disp);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+      margin-bottom: 0;
+    }
+
+    /* ── ABOUT SECTION ───────────────────────────────────── */
+    #about {
+      padding: 5rem var(--pad-x) 6rem;
+      background: var(--bg);
+    }
+
+    /* Intro */
+    .about-intro { max-width: 740px; margin-bottom: 2.5rem; }
+    .about-main-text {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-bright);
+      line-height: 1.8;
+      margin-bottom: 1.1rem;
+    }
+    .about-body {
+      font-size: 0.88rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 0.9rem;
+    }
+
+    /* Stats bar */
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 4.5rem;
+    }
+    .astat { background: var(--bg); padding: 1.4rem 1rem; text-align: center; transition: background 0.2s; }
+    .astat:hover { background: var(--bg2); }
+    .astat-n {
+      font-family: var(--font-disp);
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .astat-l {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    /* Section sub-header */
+    .about-section-head {
+      margin: 0 0 2rem;
+    }
+    .about-section-head h2 {
+      font-family: var(--font-disp);
+      font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-top: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    .about-section-head .section-eyebrow { margin-bottom: 0.25rem; }
+
+    /* VM Cards */
+    .vm-card {
+      background: var(--bg2);
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      height: 100%;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s;
+      will-change: transform;
+    }
+    .vm-card:hover {
+      border-color: var(--border-hi);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,232,90,0.08);
+    }
+    .vm-card-icon {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(0,232,90,0.2);
+      border-radius: 10px;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      background: rgba(0,232,90,0.04);
+    }
+    .vm-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 0.7rem;
+      letter-spacing: -0.01em;
+    }
+    .vm-card p {
+      font-size: 0.82rem;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    /* Benefit Cards */
+    .benefit-card {
+      background: var(--bg2);
+      padding: 1.6rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      height: 100%;
+      transition: transform 0.3s var(--ease), border-color 0.3s;
+      will-change: transform;
+    }
+    .benefit-card:hover {
+      border-color: var(--border-hi);
+      transform: translateY(-4px);
+    }
+    .benefit-icon {
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(0,232,90,0.15);
+      border-radius: 8px;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      background: rgba(0,232,90,0.03);
+    }
+    .benefit-card h4 {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 0.5rem;
+    }
+    .benefit-card p {
+      font-size: 0.76rem;
+      line-height: 1.75;
+      color: var(--text);
+    }
+
+    /* Spacing helpers */
+    .gap-section { margin-top: 4rem; }
+
+    /* ── SCROLL REVEAL ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+      transition-delay: var(--delay, 0s);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding-top: 4rem;
+      padding-bottom: 2rem;
+    }
+    .footer-brand-name-text {
+      font-family: var(--font-disp);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-bright);
+      letter-spacing: 0.04em;
+    }
+    .footer-desc {
+      font-size: 0.78rem;
+      color: var(--text);
+      line-height: 1.65;
+      margin-top: 0.5rem;
+    }
+    .footer-col-title {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.85rem;
+      font-weight: 700;
+    }
+    .footer-col-links { display: flex; flex-direction: column; gap: 0.45rem; }
+    .footer-col-links a {
+      font-size: 0.82rem;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+    .footer-col-links a:hover { color: var(--accent); }
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.56rem;
+      color: var(--text);
+      opacity: 0.45;
+    }
+    .footer-status {
+      font-family: var(--font-mono);
+      font-size: 0.56rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: 600;
+    }
+    .footer-made {
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      color: var(--text);
+      opacity: 0.35;
+      letter-spacing: 0.08em;
+    }
+    .status-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 5px var(--accent);
+      animation: pulseDot 2.5s ease-in-out infinite;
+    }
+
+    /* ── KEYFRAMES ───────────────────────────────────────── */
+    @keyframes pulseDot {
+      0%, 100% { box-shadow: 0 0 3px var(--accent); }
+      50%       { box-shadow: 0 0 8px var(--accent), 0 0 14px rgba(0,232,90,0.15); }
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      :root { --pad-x: 1.5rem; }
+      #about { padding: 3.5rem var(--pad-x) 4rem; }
+      .about-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
 <body data-page="about">
 
+  <!-- NAV -->
   <nav class="navbar navbar-expand-lg navbar-dark" id="navbar" aria-label="Main navigation">
-    <div class="container">
+    <div class="container-fluid px-0" style="padding: 0 var(--pad-x);">
       <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-        <img src="Cyber Club CIT Logo.jpeg" alt="Cyber Club CIT Logo" class="club-logo-icon" style="border-radius:4px;width:32px;height:32px;object-fit:cover;">
+        <img src="Cyber Club CIT Logo.jpeg" alt="Cyber Club CIT Logo" class="club-logo-icon">
         <div>
-          <div class="nav-title" style="font-family:var(--font-disp);font-weight:700;font-size:1.05rem;line-height:1.1;letter-spacing:0.08em;">CYBER CLUB CIT</div>
-          <div class="nav-sub" style="font-family:var(--font-mono);font-size:0.55rem;opacity:0.5;letter-spacing:0.15em;text-transform:uppercase;">Official Student Chapter</div>
+          <div class="nav-title">CYBER CLUB CIT</div>
+          <div class="nav-sub">Official Student Chapter</div>
         </div>
       </a>
-      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navLinks" aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler border-0" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navLinks"
+        aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navLinks">
-        <ul class="navbar-nav ms-auto">
+      <div class="collapse navbar-collapse justify-content-end" id="navLinks">
+        <ul class="navbar-nav gap-1">
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="what-we-do.html">What We Do</a></li>
@@ -38,137 +406,168 @@
   </nav>
 
   <!-- PAGE HEADER -->
-  <div class="page-header">
-    <div class="container">
-      <div class="section-eyebrow reveal">
-        <span class="eyebrow-dot"></span>
-        <span class="eyebrow-text">About the Club</span>
-      </div>
-      <h1 class="section-title reveal">About Cyber<br>Club CIT</h1>
+  <header class="page-header">
+    <div class="section-eyebrow reveal">
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text">About the Club</span>
     </div>
-  </div>
+    <h1 class="section-title reveal" style="--delay:0.08s">About Cyber<br>Club CIT</h1>
+  </header>
 
   <!-- ABOUT CONTENT -->
   <section id="about" aria-labelledby="about-heading">
-    <div class="container">
 
-      <!-- Intro -->
-      <div class="about-intro reveal">
-        <p class="about-main-text">
-          Cyber Club CIT is an official student chapter dedicated to practical cybersecurity learning, ethical hacking, and knowledge sharing.
-        </p>
-        <p class="about-body">
-          We bring together security practitioners, researchers, students, and technology enthusiasts at Coimbatore Institute of Technology. The chapter is community-led, volunteer driven, and open to anyone with a genuine interest in cybersecurity.
-        </p>
-        <p class="about-body">
-          In an age of rapid digitalization, the club prepares its members to be the <mark>ethical defenders and creators</mark> of the future web.
-        </p>
-      </div>
+    <!-- Intro -->
+    <div class="about-intro reveal">
+      <p class="about-main-text">
+        Cyber Club CIT is an official student chapter dedicated to practical cybersecurity
+        learning, ethical hacking, and knowledge sharing.
+      </p>
+      <p class="about-body">
+        We bring together security practitioners, researchers, students, and technology
+        enthusiasts at Coimbatore Institute of Technology. The chapter is community-led,
+        volunteer-driven, and open to anyone with a genuine interest in cybersecurity.
+      </p>
+      <p class="about-body">
+        In an age of rapid digitalization, the club prepares its members to be the
+        <mark>ethical defenders and creators</mark> of the future web.
+      </p>
+    </div>
 
-      <!-- Stats -->
-      <div class="about-stats reveal" style="--delay:0.1s">
-        <div class="astat"><div class="astat-n">2024</div><div class="astat-l">Founded</div></div>
-        <div class="astat"><div class="astat-n">22+</div><div class="astat-l">Active Members</div></div>
-        <div class="astat"><div class="astat-n">CIT</div><div class="astat-l">Coimbatore, TN</div></div>
-        <div class="astat"><div class="astat-n">Open</div><div class="astat-l">All Skill Levels</div></div>
-      </div>
+    <!-- Stats -->
+    <div class="about-stats reveal" style="--delay:0.1s">
+      <div class="astat"><div class="astat-n">2024</div><div class="astat-l">Founded</div></div>
+      <div class="astat"><div class="astat-n">22+</div><div class="astat-l">Active Members</div></div>
+      <div class="astat"><div class="astat-n">CIT</div><div class="astat-l">Coimbatore, TN</div></div>
+      <div class="astat"><div class="astat-n">Open</div><div class="astat-l">All Skill Levels</div></div>
+    </div>
 
-      <!-- Mission / Vision / What -->
-      <div class="about-section-head reveal" style="--delay:0.15s">
-        <span class="eyebrow-dot"></span>
-        <span class="eyebrow-text">Our Purpose</span>
+    <!-- Mission / Vision / What -->
+    <div class="gap-section">
+      <div class="about-section-head reveal" style="--delay:0.12s">
+        <div class="section-eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span class="eyebrow-text">Our Purpose</span>
+        </div>
         <h2>Driven by a clear mission &amp; vision</h2>
       </div>
       <div class="row g-4">
-        <div class="col-lg-4 reveal" style="--delay:0.2s">
-          <div class="vm-card vm-card--what">
+        <div class="col-lg-4 reveal" style="--delay:0.18s">
+          <div class="vm-card">
             <div class="vm-card-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/>
+              </svg>
             </div>
             <h3>What We Are</h3>
-            <p>A high-tech community where students navigate network security, ethical hacking, and advanced software development through hands-on challenges and workshops.</p>
+            <p>A high-tech community where students navigate network security, ethical hacking,
+            and advanced software development through hands-on challenges and workshops.</p>
           </div>
         </div>
-        <div class="col-lg-4 reveal" style="--delay:0.3s">
-          <div class="vm-card vm-card--vision">
+        <div class="col-lg-4 reveal" style="--delay:0.26s">
+          <div class="vm-card">
             <div class="vm-card-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
             </div>
             <h3>Our Vision</h3>
-            <p>To lead the charge in digital innovation and security, preparing students to be the ethical guardians and architects of the future internet.</p>
+            <p>To lead the charge in digital innovation and security, preparing students to be
+            the ethical guardians and architects of the future internet.</p>
           </div>
         </div>
-        <div class="col-lg-4 reveal" style="--delay:0.4s">
-          <div class="vm-card vm-card--mission">
+        <div class="col-lg-4 reveal" style="--delay:0.34s">
+          <div class="vm-card">
             <div class="vm-card-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+              </svg>
             </div>
             <h3>Our Mission</h3>
-            <p>To provide a sophisticated environment for exploring cybersecurity, ethical hacking, and emerging technologies through competitive coding and defensive security exercises.</p>
+            <p>To provide a sophisticated environment for exploring cybersecurity, ethical hacking,
+            and emerging technologies through competitive coding and defensive security exercises.</p>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Why Join -->
-      <div class="about-section-head reveal" style="--delay:0.45s">
-        <span class="eyebrow-dot"></span>
-        <span class="eyebrow-text">Why Join</span>
+    <!-- Why Join -->
+    <div class="gap-section">
+      <div class="about-section-head reveal" style="--delay:0.1s">
+        <div class="section-eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span class="eyebrow-text">Why Join</span>
+        </div>
         <h2>What you gain as a member</h2>
       </div>
       <div class="row g-4">
-        <div class="col-md-3 col-6 reveal" style="--delay:0.5s">
+        <div class="col-md-3 col-6 reveal" style="--delay:0.15s">
           <div class="benefit-card">
             <div class="benefit-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
             </div>
             <h4>Hands-On Labs</h4>
             <p>Real penetration testing and vulnerability assessment in controlled environments.</p>
           </div>
         </div>
-        <div class="col-md-3 col-6 reveal" style="--delay:0.55s">
+        <div class="col-md-3 col-6 reveal" style="--delay:0.22s">
           <div class="benefit-card">
             <div class="benefit-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
             </div>
             <h4>Community</h4>
             <p>Connect with like-minded peers, researchers, and industry professionals.</p>
           </div>
         </div>
-        <div class="col-md-3 col-6 reveal" style="--delay:0.6s">
+        <div class="col-md-3 col-6 reveal" style="--delay:0.29s">
           <div class="benefit-card">
             <div class="benefit-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
             </div>
             <h4>CTF Events</h4>
             <p>Compete in Capture The Flag challenges that simulate real-world scenarios.</p>
           </div>
         </div>
-        <div class="col-md-3 col-6 reveal" style="--delay:0.65s">
+        <div class="col-md-3 col-6 reveal" style="--delay:0.36s">
           <div class="benefit-card">
             <div class="benefit-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
             </div>
             <h4>Skill Building</h4>
             <p>Workshops on blockchain, AI security, forensics, and cloud security.</p>
           </div>
         </div>
       </div>
-
     </div>
+
   </section>
 
   <!-- FOOTER -->
-  <footer role="contentinfo" class="pt-5 pb-3">
-    <div class="container">
+  <footer role="contentinfo">
+    <div class="container-fluid" style="padding: 0 var(--pad-x);">
       <div class="row g-4">
         <div class="col-lg-4 col-md-6">
           <div class="d-flex align-items-center gap-2 mb-2">
-            <img src="Cyber Club CIT Logo.jpeg" alt="Cyber Club CIT Logo" class="club-logo-icon" style="border-radius:4px;width:28px;height:28px;object-fit:cover;">
+            <img src="Cyber Club CIT Logo.jpeg" alt="Cyber Club CIT Logo" class="club-logo-icon">
             <span class="footer-brand-name-text">Cyber Club CIT</span>
           </div>
-          <p class="footer-desc mb-0">A community driven cybersecurity chapter focused on ethical hacking, practical learning, and collaborative security research.</p>
+          <p class="footer-desc">A community-driven cybersecurity chapter focused on ethical hacking,
+          practical learning, and collaborative security research.</p>
         </div>
-        <div class="col-lg-2 col-md-6 col-6">
+        <div class="col-lg-2 col-md-3 col-6">
           <div class="footer-col-title">Navigate</div>
           <div class="footer-col-links">
             <a href="index.html">Home</a>
@@ -179,14 +578,14 @@
             <a href="values.html">Values</a>
           </div>
         </div>
-        <div class="col-lg-2 col-md-6 col-6">
+        <div class="col-lg-2 col-md-3 col-6">
           <div class="footer-col-title">Connect</div>
           <div class="footer-col-links">
             <a href="https://www.instagram.com/cyberclub_cit/" target="_blank" rel="noopener noreferrer">Instagram</a>
             <a href="https://www.linkedin.com/company/cyber-club-cit" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
         </div>
-        <div class="col-lg-2 col-md-6 col-6">
+        <div class="col-lg-2 col-md-3 col-6">
           <div class="footer-col-title">Location</div>
           <div class="footer-col-links">
             <a href="#">Coimbatore, India</a>
@@ -195,7 +594,7 @@
           </div>
         </div>
       </div>
-      <hr class="border-light opacity-10 my-4">
+      <hr style="border-color: rgba(255,255,255,0.06); margin: 2.5rem 0 1.5rem;">
       <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
         <span class="footer-copy">© 2026 Cyber Club CIT · All rights reserved</span>
         <span class="footer-status"><span class="status-dot"></span> Systems Live</span>
@@ -205,6 +604,31 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/global.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      // ── Active nav link ──
+      const page = document.body.dataset.page || '';
+      document.querySelectorAll('.nav-link').forEach(link => {
+        const href = (link.getAttribute('href') || '').replace('.html', '');
+        if (href === page || (page === 'index' && href === 'index')) {
+          link.classList.add('active');
+        }
+      });
+
+      // ── Scroll reveal ──
+      const revealEls = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      revealEls.forEach(el => observer.observe(el));
+    })();
+  </script>
 </body>
 </html>
