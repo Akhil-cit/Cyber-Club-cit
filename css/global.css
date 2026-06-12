@@ -37,7 +37,7 @@ body[data-page="index"] {
   background-size: 32px 32px;
 }
 section, div, article, main { background: var(--bg); }
-.container, .container-fluid { background: var(--bg); max-width: 100%; }
+.container, .container-fluid { background: var(--bg); }
 /* Scrollbar styling */
 ::-webkit-scrollbar { width: 10px; background: var(--bg); }
 ::-webkit-scrollbar-track { background: var(--bg); }
