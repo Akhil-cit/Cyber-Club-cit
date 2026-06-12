@@ -12,25 +12,6 @@
       link.classList.add('active');
     }
   });
-  mLinks.forEach(link => {
-    const href = link.getAttribute('href').replace('.html', '');
-    if (href === page || (page === '' && href === 'index')) {
-      link.classList.add('active');
-    }
-  });
-
-
-
-  // ---- MOBILE MENU ----
-  const menuBtn = document.getElementById('menuBtn');
-  const closeBtn = document.getElementById('closeMenu');
-  const overlay = document.getElementById('mobileMenu');
-  function openMenu() { if (!overlay) return; overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
-  function closeMenuFn() { if (!overlay) return; overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
-  if(menuBtn) menuBtn.addEventListener('click', openMenu);
-  if(closeBtn) closeBtn.addEventListener('click', closeMenuFn);
-  mLinks.forEach(l => l.addEventListener('click', closeMenuFn));
-  document.addEventListener('keydown', e => { if(e.key==='Escape' && overlay) closeMenuFn(); });
 
   // ---- SCROLL REVEAL ----
   const revealEls = document.querySelectorAll('.reveal');

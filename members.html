@@ -8,108 +8,97 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/global.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="js/members-config.js"></script>
 </head>
 <body data-page="members">
 
-  <nav id="navbar" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="Cyber Club CIT home">
-        <img src="Cyber Club CIT Logo.jpeg" alt="Cyber Club CIT Logo" class="club-logo-icon" style="border-radius:4px;">
-        <div class="nav-wordmark">
-          <span class="nav-title">CYBER CLUB CIT</span>
-          <span class="nav-sub">Official Student Chapter</span>
+  <nav class="navbar navbar-expand-lg navbar-dark" id="navbar" aria-label="Main navigation">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="Cyber Club CIT Logo.jpeg" alt="Cyber Club CIT Logo" class="club-logo-icon" style="border-radius:4px;width:32px;height:32px;object-fit:cover;">
+        <div>
+          <div class="nav-title" style="font-family:var(--font-disp);font-weight:700;font-size:1.05rem;line-height:1.1;letter-spacing:0.08em;">CYBER CLUB CIT</div>
+          <div class="nav-sub" style="font-family:var(--font-mono);font-size:0.55rem;opacity:0.5;letter-spacing:0.15em;text-transform:uppercase;">Official Student Chapter</div>
         </div>
       </a>
-
-      <div class="nav-center" id="navLinks">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="what-we-do.html" class="nav-link">What We Do</a>
-        <a href="events.html" class="nav-link">Events</a>
-        <a href="members.html" class="nav-link">Members</a>
-        <a href="values.html" class="nav-link">Values</a>
-      </div>
-
-      <button class="hamburger" id="menuBtn" aria-label="Open menu">
-        <span></span><span></span><span></span>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navLinks" aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
+      <div class="collapse navbar-collapse" id="navLinks">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="what-we-do.html">What We Do</a></li>
+          <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="members.html">Members</a></li>
+          <li class="nav-item"><a class="nav-link" href="values.html">Values</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
 
-  <div class="mobile-overlay" id="mobileMenu" aria-hidden="true" role="dialog">
-    <button class="close-btn" id="closeMenu" aria-label="Close menu">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="15" y1="5" x2="5" y2="15"/><line x1="5" y1="5" x2="15" y2="15"/></svg>
-    </button>
-    <nav class="mobile-nav">
-      <a href="index.html" class="m-link">Home</a>
-      <a href="about.html" class="m-link">About</a>
-      <a href="what-we-do.html" class="m-link">What We Do</a>
-      <a href="events.html" class="m-link">Events</a>
-      <a href="members.html" class="m-link">Members</a>
-      <a href="values.html" class="m-link">Values</a>
-    </nav>
-    <div class="mobile-footer">
-      <p>Cyber Club CIT — Est. 2024</p>
-      <p>Coimbatore Institute of Technology</p>
-    </div>
-  </div>
-
   <div class="page-header">
-    <div class="section-eyebrow reveal">
-      <span class="eyebrow-dot"></span>
-      <span class="eyebrow-text">Our Team</span>
+    <div class="container">
+      <div class="section-eyebrow reveal">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">Our Team</span>
+      </div>
+      <h1 class="section-title reveal">Members</h1>
     </div>
-    <h1 class="section-title reveal">Members</h1>
   </div>
 
   <section id="members" aria-labelledby="members-heading">
-    <div class="section-wrap" id="membersContainer"></div>
+    <div class="container" id="membersContainer"></div>
   </section>
 
-  <footer role="contentinfo">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="footer-brand-name">
-          <img src="Cyber Club CIT Logo.jpeg" alt="Cyber Club CIT Logo" class="club-logo-icon" style="border-radius:4px;">
-          <span class="footer-brand-name-text">Cyber Club CIT</span>
+  <footer role="contentinfo" class="pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <img src="Cyber Club CIT Logo.jpeg" alt="Cyber Club CIT Logo" class="club-logo-icon" style="border-radius:4px;width:28px;height:28px;object-fit:cover;">
+            <span class="footer-brand-name-text">Cyber Club CIT</span>
+          </div>
+          <p class="footer-desc mb-0">A community driven cybersecurity chapter focused on ethical hacking, practical learning, and collaborative security research.</p>
         </div>
-        <p class="footer-desc">A community driven cybersecurity chapter focused on ethical hacking, practical learning, and collaborative security research.</p>
-      </div>
-      <div>
-        <div class="footer-col-title">Navigate</div>
-        <div class="footer-col-links">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="what-we-do.html">What We Do</a>
-          <a href="events.html">Events</a>
-          <a href="members.html">Members</a>
-          <a href="values.html">Values</a>
+        <div class="col-lg-2 col-md-6 col-6">
+          <div class="footer-col-title">Navigate</div>
+          <div class="footer-col-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="what-we-do.html">What We Do</a>
+            <a href="events.html">Events</a>
+            <a href="members.html">Members</a>
+            <a href="values.html">Values</a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-6">
+          <div class="footer-col-title">Connect</div>
+          <div class="footer-col-links">
+            <a href="https://www.instagram.com/cyberclub_cit/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://www.linkedin.com/company/cyber-club-cit" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-6">
+          <div class="footer-col-title">Location</div>
+          <div class="footer-col-links">
+            <a href="#">Coimbatore, India</a>
+            <a href="#">CIT Campus</a>
+            <a href="#">Est. 2024</a>
+          </div>
         </div>
       </div>
-      <div>
-        <div class="footer-col-title">Connect</div>
-        <div class="footer-col-links">
-          <a href="https://www.instagram.com/cyberclub_cit/" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href="https://www.linkedin.com/company/cyber-club-cit" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        </div>
+      <hr class="border-light opacity-10 my-4">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <span class="footer-copy">© 2026 Cyber Club CIT · All rights reserved</span>
+        <span class="footer-status"><span class="status-dot"></span> Systems Live</span>
+        <span class="footer-made">made for hackers, by hackers.</span>
       </div>
-      <div>
-        <div class="footer-col-title">Location</div>
-        <div class="footer-col-links">
-          <a href="#">Coimbatore, India</a>
-          <a href="#">CIT Campus</a>
-          <a href="#">Est. 2024</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span class="footer-copy">© 2026 Cyber Club CIT · All rights reserved</span>
-      <span class="footer-status"><span class="status-dot"></span> Systems Live</span>
-      <span class="footer-made">made for hackers, by hackers.</span>
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/global.js"></script>
   <script>
     function renderMembers() {
