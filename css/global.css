@@ -758,7 +758,7 @@ mark {
   max-width: 860px;
 }
 .team-card {
-  background: var(--bg2);
+  background: #000000;
   padding: 2.5rem;
   display: flex;
   gap: 2rem;
@@ -772,6 +772,9 @@ mark {
   background: #000000;
 }
 .team-card:last-child:hover {
+  background: #1a1a1a;
+}
+.team-card:hover {
   background: #1a1a1a;
 }
 .team-photo-wrap {
