@@ -748,28 +748,41 @@ mark {
 }
 
 /* ---- TEAM ---- */
-#team { background: var(--bg); }
+#members {
+  background: var(--bg);
+  padding: 6rem var(--pad-x);
+}
+#membersContainer {
+  background: var(--bg);
+}
 .team-members-container {
   display: block;
   width: 100%;
+  background: var(--bg);
 }
 .team-card-wrapper {
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 .team-card {
-  background: #000000;
+  background: var(--bg);
   padding: 2.5rem;
   display: flex;
   gap: 2rem;
   align-items: flex-start;
-  transition: background 0.2s;
+  transition: all 0.3s;
   position: relative;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  overflow: visible;
+  border: none;
+  border-bottom: 1px solid var(--border);
+}
+.team-card:last-child {
+  border-bottom: none;
 }
 .team-card:hover {
-  background: #1a1a1a;
+  background: var(--bg);
+  padding-left: 3rem;
+  transform: translateX(10px);
 }
 .team-photo-wrap {
   flex-shrink: 0;
@@ -784,11 +797,12 @@ mark {
   object-position: top center;
   border: 1px solid var(--border-md);
   display: block;
+  border-radius: 2px;
 }
 .team-photo-placeholder {
   width: 160px;
   height: 160px;
-  background: transparent;
+  background: var(--bg2);
   border: 1px solid var(--border-md);
   display: flex;
   align-items: center;
@@ -798,17 +812,19 @@ mark {
   font-weight: 700;
   color: var(--accent);
   letter-spacing: 0.02em;
+  border-radius: 2px;
 }
-.team-info { flex: 1; }
+.team-info { flex: 1; padding-left: 1rem; }
 .team-role-heading {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   color: var(--accent);
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  margin: 3rem 0 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-md);
+  margin: 3rem 0 2rem;
+  padding-bottom: 0;
+  border-bottom: none;
+  font-weight: 600;
 }
 .team-role {
   font-family: var(--font-mono);
@@ -816,21 +832,23 @@ mark {
   color: var(--accent);
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
 }
 .team-name {
   font-family: var(--font-disp);
   font-size: 1.3rem;
   font-weight: 700;
   color: var(--text-bright);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   letter-spacing: -0.01em;
 }
 .team-dept {
   font-size: 0.78rem;
   line-height: 1.6;
   color: var(--text);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0;
+  font-weight: 500;
 }
 .team-bio {
   font-size: 0.8rem;
