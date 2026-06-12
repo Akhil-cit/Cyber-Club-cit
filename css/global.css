@@ -23,7 +23,7 @@
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; font-size: 16px; background: var(--bg); overflow: hidden; }
+html { scroll-behavior: smooth; font-size: 16px; background: var(--bg); }
 body {
   background: var(--bg);
   color: var(--text);
@@ -32,8 +32,13 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
-section, div, article, main, .container, .container-fluid { background: var(--bg); }
-::-webkit-scrollbar { background: var(--bg); }
+section, div, article, main { background: var(--bg); }
+.container, .container-fluid { background: var(--bg); max-width: 100%; }
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 10px; background: var(--bg); }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 232, 90, 0.8); }
 a { text-decoration: none; color: inherit; }
 img, svg { display: block; }
 ul { list-style: none; }
@@ -962,10 +967,11 @@ mark {
 .page-header {
   padding-top: calc(var(--nav-h) + 4rem);
   padding-bottom: 4rem;
-  max-width: var(--max-w);
+  width: 100%;
   margin: 0 auto;
   padding-left: var(--pad-x);
   padding-right: var(--pad-x);
+  background: var(--bg);
 }
 .page-header .section-title { margin-bottom: 0; }
 
