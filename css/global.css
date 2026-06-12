@@ -149,10 +149,10 @@ ul { list-style: none; }
   text-transform: uppercase;
 }
 .status-dot {
-  width: 6px; height: 6px;
+  width: 5px; height: 5px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
+  box-shadow: 0 0 4px var(--accent);
   animation: pulseDot 2.5s ease-in-out infinite;
 }
 
@@ -965,8 +965,8 @@ mark {
   to   { transform: translateX(-50%); }
 }
 @keyframes pulseDot {
-  0%, 100% { box-shadow: 0 0 5px var(--accent); }
-  50%       { box-shadow: 0 0 12px var(--accent), 0 0 20px rgba(0,232,90,0.3); }
+  0%, 100% { box-shadow: 0 0 3px var(--accent); }
+  50%       { box-shadow: 0 0 7px var(--accent), 0 0 12px rgba(0,232,90,0.15); }
 }
 
 /* ---- PAGE HEADER (for sub-pages) ---- */
