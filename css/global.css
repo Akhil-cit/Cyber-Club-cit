@@ -749,6 +749,10 @@ mark {
 
 /* ---- TEAM ---- */
 #team { background: var(--bg); }
+.team-members-container {
+  display: block;
+  width: 100%;
+}
 .team-card-wrapper {
   display: block;
   margin-bottom: 15px;
