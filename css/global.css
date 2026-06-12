@@ -417,11 +417,11 @@ section {
 }
 
 /* ---- ABOUT ---- */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
-  align-items: start;
+.about-intro {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2rem 0;
 }
 .about-main-text {
   font-size: 1.05rem;
@@ -442,16 +442,19 @@ mark {
 }
 
 .about-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: center;
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
-  margin-top: 1rem;
+  max-width: 700px;
+  margin: 2rem auto;
 }
 .astat {
   background: var(--bg);
-  padding: 1.5rem;
+  padding: 1.5rem 2rem;
+  flex: 1;
+  text-align: center;
 }
 .astat-n {
   font-family: var(--font-disp);
@@ -469,18 +472,20 @@ mark {
   text-transform: uppercase;
 }
 
-.vm-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  background: var(--border);
-}
 .vm-card {
-  background: var(--bg);
+  background: var(--bg2);
   padding: 2rem;
-  transition: background 0.2s;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  height: 100%;
+  will-change: transform;
 }
-.vm-card:hover { background: var(--bg3); }
+.vm-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 232, 90, 0.1);
+}
 .vm-card-label {
   font-family: var(--font-mono);
   font-size: 0.58rem;
@@ -990,7 +995,6 @@ mark {
 @media (max-width: 1100px) {
   .hero-body { flex-direction: column; }
   .hero-right { flex: 0 0 auto; width: 100%; max-width: 500px; }
-  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
   .activities-grid { grid-template-columns: repeat(2, 1fr); }
   .values-grid { grid-template-columns: repeat(2, 1fr); }
   .events-grid { grid-template-columns: 1fr; }
