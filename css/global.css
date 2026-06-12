@@ -749,13 +749,9 @@ mark {
 
 /* ---- TEAM ---- */
 #team { background: var(--bg); }
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 15px;
-  background: transparent;
-  border: none;
-  max-width: 860px;
+.team-card-wrapper {
+  display: block;
+  margin-bottom: 15px;
 }
 .team-card {
   background: #000000;
@@ -767,12 +763,6 @@ mark {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--border);
-}
-.team-card:last-child {
-  background: #000000;
-}
-.team-card:last-child:hover {
-  background: #1a1a1a;
 }
 .team-card:hover {
   background: #1a1a1a;

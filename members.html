@@ -113,8 +113,10 @@
       for (var g = 0; g < config.groups.length; g++) {
         var group = config.groups[g];
         if (!group.members || !group.members.length) continue;
-        var grid = document.createElement('div');
-        grid.className = 'team-grid';
+        var heading = document.createElement('h2');
+        heading.className = 'team-role-heading reveal';
+        heading.textContent = group.name;
+        container.appendChild(heading);
         for (var m = 0; m < group.members.length; m++) {
           var member = group.members[m];
           var hasName = member && member.name && member.name.trim().length > 0;
@@ -122,6 +124,8 @@
           if (!hasName || !hasInfo) continue;
           try {
             var delay = (m * 0.1).toFixed(1) + 's';
+            var wrapper = document.createElement('div');
+            wrapper.className = 'team-card-wrapper';
             var card = document.createElement('article');
             card.className = 'team-card reveal';
             card.style.setProperty('--delay', delay);
@@ -149,15 +153,9 @@
             var d = document.createElement('div'); d.className = 'team-dept';
             if (member.dept) d.textContent = member.dept; info.appendChild(d);
             card.appendChild(info);
-            grid.appendChild(card);
+            wrapper.appendChild(card);
+            container.appendChild(wrapper);
           } catch(e) {}
-        }
-        if (grid.children.length > 0) {
-          var heading = document.createElement('h2');
-          heading.className = 'team-role-heading reveal';
-          heading.textContent = group.name;
-          container.appendChild(heading);
-          container.appendChild(grid);
         }
       }
     }
