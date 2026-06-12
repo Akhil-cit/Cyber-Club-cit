@@ -417,12 +417,6 @@ section {
 }
 
 /* ---- ABOUT ---- */
-.about-intro {
-  max-width: 700px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 2rem 0;
-}
 .about-main-text {
   font-size: 1.05rem;
   font-weight: 400;
@@ -442,18 +436,16 @@ mark {
 }
 
 .about-stats {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
-  max-width: 700px;
-  margin: 2rem auto;
+  margin-top: 2rem;
 }
 .astat {
   background: var(--bg);
-  padding: 1.5rem 2rem;
-  flex: 1;
+  padding: 1.2rem 1rem;
   text-align: center;
 }
 .astat-n {
@@ -472,19 +464,24 @@ mark {
   text-transform: uppercase;
 }
 
+.vm-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
 .vm-card {
   background: var(--bg2);
   padding: 2rem;
   transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 8px;
-  height: 100%;
+  border: none;
   will-change: transform;
 }
 .vm-card:hover {
   border-color: var(--accent);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 232, 90, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 232, 90, 0.08);
 }
 .vm-card-label {
   font-family: var(--font-mono);
