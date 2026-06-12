@@ -84,7 +84,8 @@ ul { list-style: none; }
 }
 .nav-title {
   font-family: var(--font-disp);
-  font-size: 1.05rem;\n  font-weight: 700;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--text-bright);
   letter-spacing: 0.03em;
 }
