@@ -32,6 +32,10 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
+body[data-page="index"] {
+  background-image: radial-gradient(circle, rgba(0,232,90,0.12) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
 section, div, article, main { background: var(--bg); }
 .container, .container-fluid { background: var(--bg); max-width: 100%; }
 /* Scrollbar styling */
