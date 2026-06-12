@@ -51,7 +51,9 @@
   <!-- ABOUT CONTENT -->
   <section id="about" aria-labelledby="about-heading">
     <div class="container">
-      <div class="about-text-col reveal">
+
+      <!-- Intro -->
+      <div class="about-intro reveal">
         <p class="about-main-text">
           Cyber Club CIT is an official student chapter dedicated to practical cybersecurity learning, ethical hacking, and knowledge sharing.
         </p>
@@ -63,6 +65,7 @@
         </p>
       </div>
 
+      <!-- Stats -->
       <div class="about-stats reveal" style="--delay:0.1s">
         <div class="astat"><div class="astat-n">2024</div><div class="astat-l">Founded</div></div>
         <div class="astat"><div class="astat-n">22+</div><div class="astat-l">Active Members</div></div>
@@ -70,29 +73,87 @@
         <div class="astat"><div class="astat-n">Open</div><div class="astat-l">All Skill Levels</div></div>
       </div>
 
-      <div class="row g-3 mt-4">
-        <div class="col-lg-4 reveal">
-          <div class="vm-card">
-            <div class="vm-card-num">01</div>
-            <h3>Student-Driven Security Community</h3>
-            <p>A high-tech community where students dive into the ever-evolving world of information security. Through workshops and hands-on challenges, we navigate network security and advanced software development.</p>
+      <!-- Mission / Vision / What -->
+      <div class="about-section-head reveal" style="--delay:0.15s">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">Our Purpose</span>
+        <h2>Driven by a clear mission &amp; vision</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-4 reveal" style="--delay:0.2s">
+          <div class="vm-card vm-card--what">
+            <div class="vm-card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+            </div>
+            <h3>What We Are</h3>
+            <p>A high-tech community where students navigate network security, ethical hacking, and advanced software development through hands-on challenges and workshops.</p>
           </div>
         </div>
-        <div class="col-lg-4 reveal" style="--delay:0.1s">
-          <div class="vm-card">
-            <div class="vm-card-num">02</div>
-            <h3>Ethical Guardians of the Digital Frontier</h3>
+        <div class="col-lg-4 reveal" style="--delay:0.3s">
+          <div class="vm-card vm-card--vision">
+            <div class="vm-card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <h3>Our Vision</h3>
             <p>To lead the charge in digital innovation and security, preparing students to be the ethical guardians and architects of the future internet.</p>
           </div>
         </div>
-        <div class="col-lg-4 reveal" style="--delay:0.2s">
-          <div class="vm-card">
-            <div class="vm-card-num">03</div>
-            <h3>Practical Learning &amp; Knowledge Sharing</h3>
-            <p>Provide a sophisticated environment for exploring cybersecurity, ethical hacking, and emerging software technologies through competitive coding and defensive security exercises.</p>
+        <div class="col-lg-4 reveal" style="--delay:0.4s">
+          <div class="vm-card vm-card--mission">
+            <div class="vm-card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3>Our Mission</h3>
+            <p>To provide a sophisticated environment for exploring cybersecurity, ethical hacking, and emerging technologies through competitive coding and defensive security exercises.</p>
           </div>
         </div>
       </div>
+
+      <!-- Why Join -->
+      <div class="about-section-head reveal" style="--delay:0.45s">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">Why Join</span>
+        <h2>What you gain as a member</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-3 col-6 reveal" style="--delay:0.5s">
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h4>Hands-On Labs</h4>
+            <p>Real penetration testing and vulnerability assessment in controlled environments.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 reveal" style="--delay:0.55s">
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h4>Community</h4>
+            <p>Connect with like-minded peers, researchers, and industry professionals.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 reveal" style="--delay:0.6s">
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <h4>CTF Events</h4>
+            <p>Compete in Capture The Flag challenges that simulate real-world scenarios.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 reveal" style="--delay:0.65s">
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <h4>Skill Building</h4>
+            <p>Workshops on blockchain, AI security, forensics, and cloud security.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
