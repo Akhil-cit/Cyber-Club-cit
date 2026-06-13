@@ -36,8 +36,10 @@ body[data-page="index"] {
   background-image: radial-gradient(circle, rgba(0,232,90,0.12) 1px, transparent 1px);
   background-size: 32px 32px;
 }
-section, div, article, main { background: var(--bg); }
-.container, .container-fluid { background: var(--bg); }
+
+/* REMOVED: section, div, article, main { background: var(--bg); } — was overriding all card backgrounds */
+/* REMOVED: .container, .container-fluid { background: var(--bg); max-width: 100%; } — was breaking layout width */
+
 /* Scrollbar styling */
 ::-webkit-scrollbar { width: 10px; background: var(--bg); }
 ::-webkit-scrollbar-track { background: var(--bg); }
@@ -46,6 +48,7 @@ section, div, article, main { background: var(--bg); }
 a { text-decoration: none; color: inherit; }
 img, svg { display: block; }
 ul { list-style: none; }
+mark { background: none; color: var(--accent); }
 
 /* ---- NAV ---- */
 #navbar {
@@ -115,13 +118,8 @@ ul { list-style: none; }
 }
 .nav-link:hover { color: var(--text-bright); }
 .nav-link:hover::after { width: 100%; }
-.nav-link.active {
-  color: var(--accent);
-}
-.nav-link.active::after {
-  width: 100%;
-}
-
+.nav-link.active { color: var(--accent); }
+.nav-link.active::after { width: 100%; }
 
 
 /* ---- HERO ---- */
@@ -261,8 +259,6 @@ ul { list-style: none; }
   animation: fadeUp 0.5s var(--ease) 0.5s both;
 }
 
-
-
 .hero-right {
   flex: 0 0 420px;
   display: flex;
@@ -287,9 +283,7 @@ ul { list-style: none; }
   gap: 6px;
   border-bottom: 1px solid var(--border);
 }
-.tbar-dot {
-  width: 10px; height: 10px; border-radius: 50%;
-}
+.tbar-dot { width: 10px; height: 10px; border-radius: 50%; }
 .tbar-dot--red    { background: #ff5f56; }
 .tbar-dot--yellow { background: #ffbd2e; }
 .tbar-dot--green  { background: #27c93f; }
@@ -365,13 +359,8 @@ ul { list-style: none; }
   white-space: nowrap;
   border: none;
 }
-.btn--primary {
-  background: var(--accent);
-  color: #000;
-}
-.btn--primary:hover {
-  background: #1fff6e;
-}
+.btn--primary { background: var(--accent); color: #000; }
+.btn--primary:hover { background: #1fff6e; }
 .btn--ghost {
   border: 1px solid var(--border-md);
   color: var(--text-mid);
@@ -385,8 +374,9 @@ ul { list-style: none; }
 /* ---- SECTIONS ---- */
 section {
   padding: 6rem var(--pad-x);
+  background: var(--bg);
 }
-.section--alt { background: var(--bg2); }
+.section--alt { background: var(--bg2) !important; }
 
 .section-eyebrow {
   display: flex;
@@ -430,10 +420,6 @@ section {
   line-height: 1.85;
   color: var(--text);
   margin-bottom: 1rem;
-}
-mark {
-  background: none;
-  color: var(--accent);
 }
 
 .about-stats {
@@ -491,11 +477,8 @@ mark {
   box-shadow: 0 8px 28px rgba(0, 232, 90, 0.08);
 }
 .vm-card-icon {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
   border: 1px solid rgba(0,232,90,0.2);
   border-radius: 10px;
   color: var(--accent);
@@ -516,9 +499,7 @@ mark {
   opacity: 0.85;
 }
 
-.about-section-head {
-  margin: 4rem 0 2rem;
-}
+.about-section-head { margin: 4rem 0 2rem; }
 .about-section-head h2 {
   font-family: var(--font-disp);
   font-size: 1.6rem;
@@ -542,11 +523,8 @@ mark {
   transform: translateY(-3px);
 }
 .benefit-icon {
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
   border: 1px solid rgba(0,232,90,0.15);
   border-radius: 8px;
   color: var(--accent);
@@ -685,7 +663,6 @@ mark {
   transition: background 0.2s;
 }
 .event-card:hover { background: var(--bg3); }
-
 .event-card-type {
   font-family: var(--font-mono);
   font-size: 0.58rem;
@@ -705,7 +682,6 @@ mark {
   border: 1px solid var(--border-md);
   padding: 3px 10px;
 }
-
 .event-card h3 {
   font-family: var(--font-disp);
   font-size: 1.4rem;
@@ -727,7 +703,6 @@ mark {
   color: var(--text);
   margin-bottom: 2rem;
 }
-
 .event-meta-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -746,7 +721,6 @@ mark {
   font-size: 0.82rem;
   color: var(--text-bright);
 }
-
 .event-tags {
   display: flex;
   flex-wrap: wrap;
@@ -761,7 +735,6 @@ mark {
   padding: 3px 10px;
   letter-spacing: 0.06em;
 }
-
 .event-rounds {
   border-top: 1px solid var(--border);
   padding-top: 1.5rem;
@@ -802,7 +775,6 @@ mark {
   line-height: 1.7;
   color: var(--text);
 }
-
 .prize-list {
   margin-top: 1.5rem;
   display: flex;
@@ -828,9 +800,7 @@ mark {
   background: var(--bg);
   padding: 4rem var(--pad-x);
 }
-#membersContainer {
-  background: var(--bg);
-}
+#membersContainer { background: var(--bg); }
 .team-role-heading {
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -875,15 +845,13 @@ mark {
 }
 .team-photo-wrap {
   flex-shrink: 0;
-  width: 160px;
-  height: 160px;
+  width: 160px; height: 160px;
   position: relative;
   border-radius: 8px;
   overflow: hidden;
 }
 .team-photo {
-  width: 160px;
-  height: 160px;
+  width: 160px; height: 160px;
   object-fit: cover;
   object-position: top center;
   border: 2px solid var(--border-md);
@@ -891,8 +859,7 @@ mark {
   border-radius: 8px;
 }
 .team-photo-placeholder {
-  width: 160px;
-  height: 160px;
+  width: 160px; height: 160px;
   background: var(--bg3);
   border: 2px solid var(--border-md);
   display: flex;
@@ -959,10 +926,7 @@ mark {
   text-transform: uppercase;
   min-width: 3rem;
 }
-.team-contact-item a {
-  color: var(--accent);
-  transition: opacity 0.2s;
-}
+.team-contact-item a { color: var(--accent); transition: opacity 0.2s; }
 .team-contact-item a:hover { opacity: 0.7; }
 
 /* ---- VALUES ---- */
@@ -1004,8 +968,6 @@ mark {
   color: var(--text);
 }
 
-
-
 /* ---- SCROLL REVEAL ---- */
 .reveal {
   opacity: 0;
@@ -1014,8 +976,6 @@ mark {
   transition-delay: var(--delay, 0s);
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
-
-
 
 /* ---- KEYFRAMES ---- */
 @keyframes fadeUp {
@@ -1066,6 +1026,7 @@ mark {
   #members { padding: 3rem var(--pad-x); }
   .activities-grid { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr 1fr; }
+  .about-stats { grid-template-columns: repeat(2, 1fr); }
   .hero-title { font-size: clamp(3.5rem, 15vw, 7rem); }
   .event-meta-grid { grid-template-columns: 1fr; }
   .team-cards-grid { grid-template-columns: 1fr; }
@@ -1076,6 +1037,7 @@ mark {
 }
 @media (max-width: 480px) {
   .values-grid { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
   .event-cards-row { flex-direction: column; }
   .event-mini-card + .event-mini-card { border-left: 1px solid var(--border); border-top: none; }
 }
